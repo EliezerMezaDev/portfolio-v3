@@ -49,3 +49,51 @@ const { content } = Astro.props;
     </div>
   </div>
 </section>
+
+
+<script>
+  import { gsap } from "gsap";
+
+  function animateHero() {
+    const tl = gsap.timeline({
+      defaults: {
+        duration: 0.8,
+        ease: "power3.out",
+      },
+    });
+
+    tl.to("#hero-title", {
+      opacity: 1,
+      y: -20,
+    });
+
+    tl.to(
+      "#hero-subtitle",
+      {
+        opacity: 1,
+        y: -15,
+      },
+      "-=0.6"
+    );
+
+    tl.to(
+      "#hero-cta-wrapper",
+      {
+        opacity: 1,
+        y: -10,
+      },
+      "-=0.6"
+    );
+
+    tl.to(
+      "#scroll-indicator",
+      {
+        opacity: 1,
+        duration: 1,
+      },
+      "+=0.2"
+    );
+  }
+
+  document.addEventListener("DOMContentLoaded", animateHero);
+</script>

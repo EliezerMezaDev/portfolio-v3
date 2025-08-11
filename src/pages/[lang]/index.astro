@@ -1,8 +1,14 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Hero from "@/components/Hero.astro";
+
 import esTranslations from "@/content/i18n/es.json";
 import enTranslations from "@/content/i18n/en.json";
+
+import Hero from "@/components/Hero.astro";
+
+//? sections
+import Experience from "@/components/sections/Experience.astro";
+import Skills from "@/Components/sections/Skills.astro";
 
 const { lang } = Astro.params;
 
@@ -16,54 +22,7 @@ const t = lang === "es" ? esTranslations : enTranslations;
 <Layout t={t} lang={lang}>
   <Hero content={t.hero} />
 
-  <section id="experience" class="min-h-screen bg-brand-dark"></section>
-  <section id="projects" class="min-h-screen"></section>
-  <section id="about" class="min-h-screen bg-brand-dark"></section>
+  <Experience lang={lang} t={t} />
+
+  <Skills t={t} />
 </Layout>
-
-<script>
-  import { gsap } from "gsap";
-
-  function animateHero() {
-    const tl = gsap.timeline({
-      defaults: {
-        duration: 0.8,
-        ease: "power3.out",
-      },
-    });
-
-    tl.to("#hero-title", {
-      opacity: 1,
-      y: -20,
-    });
-
-    tl.to(
-      "#hero-subtitle",
-      {
-        opacity: 1,
-        y: -15,
-      },
-      "-=0.6"
-    );
-
-    tl.to(
-      "#hero-cta-wrapper",
-      {
-        opacity: 1,
-        y: -10,
-      },
-      "-=0.6"
-    );
-
-    tl.to(
-      "#scroll-indicator",
-      {
-        opacity: 1,
-        duration: 1,
-      },
-      "+=0.2"
-    );
-  }
-
-  document.addEventListener("DOMContentLoaded", animateHero);
-</script>

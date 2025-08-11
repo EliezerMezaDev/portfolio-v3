@@ -17,12 +17,17 @@ const { title, id, subtitle, className } = Astro.props;
   ]}
 >
   <header class="text-center mb-12 md:mb-16">
-    <h2
-      class="text-3xl md:text-4xl font-bold text-brand-light tracking-tighter"
-      data-section-title
-    >
-      {title}
-    </h2>
+    <span class="flex items-center justify-center gap-4 mb-4">
+      <slot name="icon" />
+
+      <h2
+        class="text-3xl md:text-4xl font-bold text-brand-light tracking-tighter"
+        data-section-title
+      >
+        {title}
+      </h2>
+    </span>
+
     {
       subtitle && (
         <p

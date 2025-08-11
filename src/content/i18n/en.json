@@ -17,5 +17,30 @@
     "title": "Hi, I'm Eliezer A Meza",
     "subtitle": "A passionate software developer focused on creating modern and fast web experiences. I turn complex ideas into elegant and functional solutions.",
     "cta": "Explore my projects"
+  },
+  "experience_section": {
+    "title": "Work Experience"
+  },
+  "skills_section": {
+    "title": "Skills",
+    "frontend_title": "Frontend",
+    "backend_title": "Backend",
+    "frontend": [
+      { "name": "HTML5", "icon": "logos:html-5" },
+      { "name": "JS (ES6+)", "icon": "logos:javascript" },
+      { "name": "React", "icon": "logos:react" },
+      { "name": "Vue", "icon": "logos:vue" },
+      { "name": "Angular", "icon": "logos:angular-icon" },
+      { "name": "Ionic", "icon": "logos:ionic-icon" },
+      { "name": "SCSS", "icon": "logos:sass" },
+      { "name": "Tailwind", "icon": "logos:tailwindcss-icon" },
+      { "name": "Flutter", "icon": "logos:flutter" }
+    ],
+    "backend": [
+      { "name": "Node.js", "icon": "logos:nodejs-icon" },
+      { "name": "Bun", "icon": "logos:bun" },
+      { "name": "Strapi", "icon": "logos:strapi-icon" },
+      { "name": "PostgreSQL", "icon": "logos:postgresql" }
+    ]
   }
 }
