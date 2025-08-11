@@ -1,0 +1,25 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import esTranslations from '@/content/i18n/es.json';
+import enTranslations from '@/content/i18n/en.json';
+
+const { lang } = Astro.params;
+
+if (lang !== 'es' && lang !== 'en') {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const t = lang === 'es' ? esTranslations : enTranslations;
+---
+<Layout t={t} lang={lang}>
+  <section class="min-h-screen flex items-center justify-center text-center p-4">
+    <div>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold">Página de Inicio ({lang.toUpperCase()})</h1>
+      <p class="mt-4 text-lg text-gray-400">Redimensiona la ventana para ver el header responsive.</p>
+    </div>
+  </section>
+  
+  <section id="experience" class="min-h-screen bg-brand-dark"></section>
+  <section id="projects" class="min-h-screen"></section>
+  <section id="about" class="min-h-screen bg-brand-dark"></section>
+</Layout>

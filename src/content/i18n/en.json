@@ -1,0 +1,16 @@
+{
+  "site": {
+    "title": "EMZ | Portfolio"
+  },
+  "nav": {
+    "home": "Home",
+    "experience": "Experience",
+    "projects": "Projects",
+    "about": "About"
+  },
+  "language_selector": {
+    "current_lang_label": "Language",
+    "other_lang_code": "es",
+    "other_lang_name": "Español"
+  }
+}

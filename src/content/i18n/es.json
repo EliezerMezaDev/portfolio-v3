@@ -1,0 +1,16 @@
+{
+  "site": {
+    "title": "EMZ | Portafolio"
+  },
+  "nav": {
+    "home": "Inicio",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "about": "Sobre mí"
+  },
+  "language_selector": {
+    "current_lang_label": "Idioma",
+    "other_lang_code": "en",
+    "other_lang_name": "English"
+  }
+}
