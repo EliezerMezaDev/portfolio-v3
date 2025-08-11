@@ -1,0 +1,51 @@
+---
+interface Props {
+  content: {
+    title: string;
+    subtitle: string;
+    cta: string;
+  };
+}
+const { content } = Astro.props;
+---
+
+<section
+  id="hero"
+  class="relative h-screen flex items-center justify-center text-center px-4"
+>
+  <div class="absolute inset-0 bg-brand-gradient opacity-30 -z-10"></div>
+
+  <div class="max-w-3xl">
+    <h1
+      id="hero-title"
+      class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-white opacity-0"
+    >
+      {content.title}
+    </h1>
+    <p
+      id="hero-subtitle"
+      class="mt-4 text-lg sm:text-xl text-brand-light/80 max-w-2xl mx-auto opacity-0"
+    >
+      {content.subtitle}
+    </p>
+    <div id="hero-cta-wrapper" class="mt-8 opacity-0">
+      <a
+        href="#projects"
+        class="inline-block px-8 py-3 bg-accent text-white font-semibold rounded-full hover:bg-accent-darker transition-colors duration-300"
+      >
+        {content.cta}
+      </a>
+    </div>
+  </div>
+
+  <div
+    id="scroll-indicator"
+    class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0"
+  >
+    <div
+      class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center items-start p-1"
+    >
+      <div class="w-1 h-2 bg-white rounded-full animate-bounce"></div>
+    </div>
+  </div>
+</section>

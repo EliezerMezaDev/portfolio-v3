@@ -12,5 +12,10 @@
     "current_lang_label": "Language",
     "other_lang_code": "es",
     "other_lang_name": "Español"
+  },
+  "hero": {
+    "title": "Hi, I'm Eliezer A Meza",
+    "subtitle": "A passionate software developer focused on creating modern and fast web experiences. I turn complex ideas into elegant and functional solutions.",
+    "cta": "Explore my projects"
   }
 }

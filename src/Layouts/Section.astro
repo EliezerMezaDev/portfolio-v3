@@ -1,0 +1,41 @@
+---
+interface Props {
+  title: string;
+  id: string;
+  subtitle?: string;
+  className?: string;
+}
+
+const { title, id, subtitle, className } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={[
+    "section-layout w-full max-w-7xl mx-auto py-20 md:py-32 px-4 sm:px-6 lg:px-8",
+    className,
+  ]}
+>
+  <header class="text-center mb-12 md:mb-16">
+    <h2
+      class="text-3xl md:text-4xl font-bold text-brand-light tracking-tighter"
+      data-section-title
+    >
+      {title}
+    </h2>
+    {
+      subtitle && (
+        <p
+          class="mt-4 text-lg md:text-xl text-brand-light/70 max-w-2xl mx-auto"
+          data-section-subtitle
+        >
+          {subtitle}
+        </p>
+      )
+    }
+  </header>
+
+  <div class="w-full">
+    <slot />
+  </div>
+</section>
