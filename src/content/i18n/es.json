@@ -30,22 +30,37 @@
     "tailwind": { "name": "Tailwind", "icon": "logos:tailwindcss-icon" },
     "typescript": { "name": "TypeScript", "icon": "logos:typescript-icon" },
     "flutter": { "name": "Flutter", "icon": "logos:flutter" },
-    
+
     "nodejs": { "name": "Node.js", "icon": "logos:nodejs-icon" },
     "bun": { "name": "Bun", "icon": "logos:bun" },
     "strapi": { "name": "Strapi", "icon": "logos:strapi-icon" },
-    "postgresql": { "name": "PostgreSQL", "icon": "logos:postgresql" }
+
+    "postgresql": { "name": "PostgreSQL", "icon": "logos:postgresql" },
+    "supabase": { "name": "Supabase", "icon": "logos:supabase-icon" }
   },
   "skills_section": {
     "title": "Habilidades",
     "frontend_title": "Frontend",
     "backend_title": "Backend",
-     "frontend_keys": ["astro", "react", "nuxt", "scss", "tailwind", "typescript", "flutter"],
-    "backend_keys": ["nodejs", "bun", "strapi", "postgresql"]
+    "bdd_title": "Bases de datos",
+    "frontend_keys": [
+      "astro",
+      "react",
+      "nuxt",
+      "scss",
+      "tailwind",
+      "typescript",
+      "flutter"
+    ],
+    "backend_keys": ["nodejs", "bun", "strapi"],
+    "database_keys": ["postgresql", "supabase"]
   },
   "projects_section": {
     "title": "Proyectos Destacados",
     "view_all_button": "Ver todos los proyectos"
+  },
+  "all_projects_page": {
+    "title": "Todos mis Proyectos",
+    "filter_all": "Todos"
   }
-  
 }

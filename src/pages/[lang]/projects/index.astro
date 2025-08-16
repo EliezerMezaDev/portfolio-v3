@@ -1,0 +1,130 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Section from "@/layouts/Section.astro";
+import ProjectCard from "@/components/projects/ProjectCard.astro";
+import { Icon } from "astro-icon/components";
+import esTranslations from "@/content/i18n/es.json";
+import enTranslations from "@/content/i18n/en.json";
+
+const { lang } = Astro.params;
+
+if (lang !== "es" && lang !== "en") {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
+
+const t = lang === "es" ? esTranslations : enTranslations;
+const allProjects = await getCollection("projects", ({ id }) =>
+  id.startsWith(`${lang}/`)
+);
+const techDictionary: any = t.technologies;
+const allTags = allProjects.flatMap((project) => project.data.tags);
+const uniqueTags = [...new Set(allTags)];
+---
+
+<Layout t={t} lang={lang}>
+  <Section title={t.all_projects_page.title} id="all-projects">
+    <Icon
+      name="lucide:code-2"
+      slot="icon"
+      class="size-10 md:size-12 translate-y-1 text-accent"
+    />
+
+    <div
+      id="filter-bar"
+      class="flex flex-wrap justify-center gap-2 mb-12 md:mb-16"
+    >
+      <button
+        class="filter-btn is-active px-4 py-2 rounded-full text-sm font-semibold border-2 border-accent text-accent transition-colors duration-200"
+        data-filter="all"
+      >
+        {t.all_projects_page.filter_all}
+      </button>
+      {
+        uniqueTags.map((tagKey: any) => {
+          const tech = techDictionary[tagKey];
+          if (!tech) return null;
+          return (
+            <button
+              class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border-2 border-transparent text-accent hover:border-accent/50 transition-colors duration-200"
+              data-filter={tagKey}
+            >
+              {tech.name}
+            </button>
+          );
+        })
+      }
+    </div>
+
+    <div
+      id="projects-grid"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    >
+      {
+        allProjects.map((project) => {
+          const tagsString = project.data.tags.join(" ");
+          return (
+            <div
+              class="project-wrapper transition-all duration-300 ease-in-out"
+              data-tags={tagsString}
+            >
+              <ProjectCard
+                project={project}
+                lang={lang}
+                techDictionary={techDictionary}
+              />
+            </div>
+          );
+        })
+      }
+    </div>
+  </Section>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const filterButtons =
+      document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const projectWrappers =
+      document.querySelectorAll<HTMLElement>(".project-wrapper");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((btn) => {
+          btn.classList.remove("is-active", "border-accent");
+          btn.classList.add("border-transparent", "hover:border-accent/50");
+        });
+        button.classList.add("is-active", "border-accent");
+        button.classList.remove("border-transparent", "hover:border-accent/50");
+
+        const filterValue = button.getAttribute("data-filter");
+
+        projectWrappers.forEach((wrapper) => {
+          const projectTags = wrapper.getAttribute("data-tags");
+
+          if (filterValue === "all" || projectTags?.includes(filterValue)) {
+            wrapper.classList.remove(
+              "opacity-0",
+              "scale-90",
+              "h-0",
+              "w-0",
+              "p-0",
+              "m-0",
+              "overflow-hidden"
+            );
+          } else {
+            wrapper.classList.add(
+              "opacity-0",
+              "scale-90",
+              "h-0",
+              "w-0",
+              "p-0",
+              "m-0",
+              "overflow-hidden"
+            );
+          }
+        });
+      });
+    });
+  });
+</script>

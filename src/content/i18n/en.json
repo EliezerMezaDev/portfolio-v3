@@ -22,28 +22,45 @@
   "experience_section": {
     "title": "Work Experience"
   },
+  "technologies": {
+    "astro": { "name": "Astro", "icon": "logos:astro-icon" },
+    "react": { "name": "React", "icon": "logos:react" },
+    "nuxt": { "name": "Nuxt", "icon": "logos:nuxt-icon" },
+    "scss": { "name": "SCSS", "icon": "logos:sass" },
+    "tailwind": { "name": "Tailwind", "icon": "logos:tailwindcss-icon" },
+    "typescript": { "name": "TypeScript", "icon": "logos:typescript-icon" },
+    "flutter": { "name": "Flutter", "icon": "logos:flutter" },
+
+    "nodejs": { "name": "Node.js", "icon": "logos:nodejs-icon" },
+    "bun": { "name": "Bun", "icon": "logos:bun" },
+    "strapi": { "name": "Strapi", "icon": "logos:strapi-icon" },
+
+    "postgresql": { "name": "PostgreSQL", "icon": "logos:postgresql" },
+    "supabase": { "name": "Supabase", "icon": "logos:supabase-icon" }
+  },
   "skills_section": {
     "title": "Skills",
     "frontend_title": "Frontend",
     "backend_title": "Backend",
-    "frontend": [
-      { "name": "Astro", "icon": "logos:astro-icon" },
-      { "name": "React", "icon": "logos:react" },
-      { "name": "Nuxt", "icon": "logos:nuxt-icon" },
-      { "name": "SCSS", "icon": "logos:sass" },
-      { "name": "Tailwind", "icon": "logos:tailwindcss-icon" },
-      { "name": "TypeScript", "icon": "logos:typescript-icon" },
-      { "name": "Flutter", "icon": "logos:flutter" }
+    "bdd_title": "Database",
+    "frontend_keys": [
+      "astro",
+      "react",
+      "nuxt",
+      "scss",
+      "tailwind",
+      "typescript",
+      "flutter"
     ],
-    "backend": [
-      { "name": "Node.js", "icon": "logos:nodejs-icon" },
-      { "name": "Bun", "icon": "logos:bun" },
-      { "name": "Strapi", "icon": "logos:strapi-icon" },
-      { "name": "PostgreSQL", "icon": "logos:postgresql" }
-    ]
+    "backend_keys": ["nodejs", "bun", "strapi"],
+    "database_keys": ["postgresql", "supabase"]
   },
   "projects_section": {
     "title": "Featured Projects",
     "view_all_button": "View all projects"
+  },
+  "all_projects_page": {
+    "title": "All My Projects",
+    "filter_all": "All"
   }
 }
