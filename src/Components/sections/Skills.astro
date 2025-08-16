@@ -1,23 +1,24 @@
 ---
 import { Icon } from "astro-icon/components";
-
 import Section from "@/layouts/Section.astro";
 
 interface Props {
   t: {
+    technologies: Record<string, { name: string; icon: string }>;
     skills_section: {
       title: string;
       frontend_title: string;
       backend_title: string;
-      frontend: { name: string; icon: string }[];
-      backend: { name: string; icon: string }[];
+      frontend_keys: string[];
+      backend_keys: string[];
     };
   };
 }
 
 const { t } = Astro.props;
-const { title, frontend_title, backend_title, frontend, backend } =
+const { title, frontend_title, backend_title, frontend_keys, backend_keys } =
   t.skills_section;
+const techDictionary = t.technologies;
 ---
 
 <Section {title} id="skills">
@@ -30,36 +31,54 @@ const { title, frontend_title, backend_title, frontend, backend } =
   <div class="w-full max-w-5xl mx-auto flex flex-col gap-12">
     <div class="frontend-section">
       <h3 class="text-2xl font-semibold text-center mb-6">{frontend_title}</h3>
-      <div
-        class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6"
-      >
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-6">
         {
-          frontend.map((skill) => (
-            <div class="skill-item opacity-0 flex flex-col items-center justify-center gap-2 p-4 bg-brand-dark/50 rounded-lg transition-transform hover:-translate-y-1">
-              <Icon name={skill.icon} class="size-12" />
-              <span class="text-sm text-center text-brand-light/80">
-                {skill.name}
-              </span>
-            </div>
-          ))
+          frontend_keys.map((key) => {
+            const skill = techDictionary[key];
+            if (!skill) return null;
+
+            return (
+              <div class="skill-item opacity-0 flex flex-col items-center justify-center gap-2 p-4 bg-brand-dark/50 rounded-lg transition-transform hover:-translate-y-1">
+                <Icon
+                  name={skill.icon}
+                  class:list={[
+                    "size-12",
+                    { "contrast-50": skill.icon == "logos:astro-icon" },
+                  ]}
+                />
+                <span class="text-sm text-center text-brand-light/80">
+                  {skill.name}
+                </span>
+              </div>
+            );
+          })
         }
       </div>
     </div>
 
     <div class="backend-section">
       <h3 class="text-2xl font-semibold text-center mb-6">{backend_title}</h3>
-      <div
-        class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6"
-      >
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-6">
         {
-          backend.map((skill) => (
-            <div class="skill-item opacity-0 flex flex-col items-center justify-center gap-2 p-4 bg-brand-dark/50 rounded-lg transition-transform hover:-translate-y-1">
-              <Icon name={skill.icon} class="size-12" />
-              <span class="text-sm text-center text-brand-light/80">
-                {skill.name}
-              </span>
-            </div>
-          ))
+          backend_keys.map((key) => {
+            const skill = techDictionary[key];
+            if (!skill) return null;
+
+            return (
+              <div class="skill-item opacity-0 flex flex-col items-center justify-center gap-2 p-4 bg-brand-dark/50 rounded-lg transition-transform hover:-translate-y-1">
+                <Icon
+                  name={skill.icon}
+                  class:list={[
+                    "size-12",
+                    { "contrast-50": skill.icon == "logos:astro-icon" },
+                  ]}
+                />
+                <span class="text-sm text-center text-brand-light/80">
+                  {skill.name}
+                </span>
+              </div>
+            );
+          })
         }
       </div>
     </div>
@@ -76,35 +95,26 @@ const { title, frontend_title, backend_title, frontend, backend } =
     gsap.context(() => {
       const allSkillItems = gsap.utils.toArray<HTMLElement>(".skill-item");
 
+        console.log(allSkillItems)
+
       allSkillItems.forEach((item, index) => {
-        gsap.from(item, {
-          opacity: 0,
-          scale: 0.8,
-          y: 50,
-          duration: 0.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: item,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        });
         gsap.to(item, {
           opacity: 1,
           scale: 1,
           y: 0,
+
           duration: 0.5,
           ease: "power2.out",
+
+          delay: (index % 6) * .3,
+
           scrollTrigger: {
             trigger: item,
             start: "top 90%",
             toggleActions: "play none none none",
           },
-          delay: (index % 6) * 0.1,
         });
-      }
-    
-    );
+      });
     }, "#skills");
   });
 </script>

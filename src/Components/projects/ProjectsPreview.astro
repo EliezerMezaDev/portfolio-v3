@@ -1,0 +1,70 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Section from "@/layouts/Section.astro";
+import ProjectCard from "@/components/projects/ProjectCard.astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  projects: CollectionEntry<"projects">[];
+  t: Record<string, any>;
+  lang: "es" | "en";
+}
+
+const { projects, t, lang } = Astro.props;
+---
+
+<Section title={t.projects_section.title} id="projects">
+  <Icon
+    name="lucide:code-2"
+    slot="icon"
+    class="size-10 md:size-12 translate-y-1 text-accent"
+  />
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {
+      projects.map((project) => (
+        <ProjectCard
+          project={project}
+          lang={lang}
+          techDictionary={t.technologies}
+        />
+      ))
+    }
+  </div>
+
+  <div class="text-center mt-12">
+    <a
+      href={`/${lang}/projects`}
+      class="inline-block px-8 py-3 border-2 border-accent text-accent font-semibold rounded-full hover:bg-accent hover:text-white transition-colors duration-300"
+    >
+      {t.projects_section.view_all_button}
+    </a>
+  </div>
+</Section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("astro:page-load", () => {
+    gsap.context(() => {
+      const items = gsap.utils.toArray<HTMLElement>(".project-card");
+
+      items.forEach((item) => {
+        gsap.from(item, {
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        });
+      });
+    }, "#projects");
+  });
+</script>

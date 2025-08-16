@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  lang: 'es' | 'en';
+  techDictionary: Record<string, { name: string; icon: string }>;
+}
+
+const { project, lang, techDictionary } = Astro.props;
+const { title, summary, tags, portraitImage } = project.data;
+const detailUrl = `/${lang}/projects/${project.slug.split('/')[1]}`;
+---
+<a href={detailUrl} class="project-card ...">
+  <div class="overflow-hidden">
+    <img 
+      src={portraitImage.src} 
+      alt={portraitImage.alt}
+      class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300"
+    />
+  </div>
+  <div class="py-6">
+    <h3 class="text-xl font-bold text-brand-light mb-2">{title}</h3>
+    <p class="text-brand-light/70 mb-4">{summary}</p>
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+      {tags.map(tagKey => {
+        const tech = techDictionary[tagKey];
+        if (!tech) return null; 
+        
+        return (
+          <div class="flex items-center gap-2" title={tech.name}>
+            <Icon name={tech.icon} class="size-5" />
+            <span class="text-xs text-brand-light/70">{tech.name}</span>
+          </div>
+        )
+      })}
+    </div>
+  </div>
+</a>

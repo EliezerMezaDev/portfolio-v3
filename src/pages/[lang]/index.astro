@@ -9,6 +9,8 @@ import Hero from "@/components/Hero.astro";
 //? sections
 import Experience from "@/components/sections/Experience.astro";
 import Skills from "@/Components/sections/Skills.astro";
+import ProjectsPreview from "@/components/projects/ProjectsPreview.astro";
+import { getCollection } from "astro:content";
 
 const { lang } = Astro.params;
 
@@ -16,11 +18,17 @@ if (lang !== "es" && lang !== "en") {
   return new Response(null, { status: 404, statusText: "Not Found" });
 }
 
+const featuredProjects = await getCollection("projects", ({ id, data }) => {
+  return id.startsWith(`${lang}/`) && data.isFeatured === true;
+});
+
 const t = lang === "es" ? esTranslations : enTranslations;
 ---
 
 <Layout t={t} lang={lang}>
   <Hero content={t.hero} />
+
+  <ProjectsPreview projects={featuredProjects} t={t} lang={lang} />
 
   <Experience lang={lang} t={t} />
 
