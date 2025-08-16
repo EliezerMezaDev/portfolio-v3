@@ -16,6 +16,8 @@
     "gsap": "^3.13.0"
   },
   "devDependencies": {
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
     "@astrojs/tailwind": "^6.0.2",
     "@iconify-json/logos": "^1.2.7"
   }

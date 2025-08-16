@@ -16,7 +16,8 @@
   "hero": {
     "title": "Hi, I'm Eliezer A Meza",
     "subtitle": "A passionate software developer focused on creating modern and fast web experiences. I turn complex ideas into elegant and functional solutions.",
-    "cta": "Explore my projects"
+    "cta": "Explore my projects",
+    "cv": "Download cv"
   },
   "experience_section": {
     "title": "Work Experience"
