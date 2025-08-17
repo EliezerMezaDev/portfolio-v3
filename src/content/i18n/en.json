@@ -66,5 +66,12 @@
   "project_detail_page": {
     "back_to_projects": "Back to Projects",
     "tech_stack": "Tech Stack"
+  },
+  "about_page": {
+    "title": "About Me",
+    "back_to_home": "Back to Home",
+    "paragraph_1": "Hello, I'm [Your Name]. My fascination with web development began back in [year or moment], when I built my first site with HTML & CSS. What started as a curiosity quickly turned into a passion for building intuitive, high-performance digital experiences.",
+    "paragraph_2": "Throughout my career, I've had the privilege of working on a variety of projects, from interactive applications to complex e-commerce platforms. My approach is always the same: to write clean, scalable, and user-centric code.",
+    "paragraph_3": "When I'm not in front of a keyboard, I enjoy [your hobby 1], [your hobby 2], or exploring new technologies in the ever-changing web development ecosystem."
   }
 }

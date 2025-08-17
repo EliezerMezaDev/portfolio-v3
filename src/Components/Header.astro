@@ -5,7 +5,25 @@ interface Props {
   t: Record<string, any>;
   lang: "es" | "en";
 }
+
 const { t, lang } = Astro.props;
+
+const navItems = [
+  {
+    label: t.nav.projects,
+    url: `/${lang}/#projects`
+  },
+  {
+    label: t.nav.experience,
+    url: `/${lang}/#experience`
+  },
+  {
+    label: t.nav.about,
+    url: `/${lang}/about`
+  }
+];
+
+const homeUrl = `/${lang}/`;
 const otherLangUrl = `/${t.language_selector.other_lang_code}/`;
 ---
 
@@ -17,33 +35,28 @@ const otherLangUrl = `/${t.language_selector.other_lang_code}/`;
     class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20"
   >
     <a
-      href={`/${lang}/`}
+      href={homeUrl}
       class="text-xl font-bold text-accent-darker hover:text-accent transition-all"
-      >EMZ</a
     >
+      EMZ
+    </a>
 
     <nav class="hidden md:flex items-center space-x-6">
       <ul class="flex space-x-6">
-        <li>
-          <a href="#projects" class="hover:text-accent transition-colors"
-            >{t.nav.projects}</a
-          >
-        </li>
-        <li>
-          <a href="#experience" class="hover:text-accent transition-colors"
-            >{t.nav.experience}</a
-          >
-        </li>
-        <li>
-          <a href="#about" class="hover:text-accent transition-colors"
-            >{t.nav.about}</a
-          >
-        </li>
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.url} class="hover:text-accent transition-colors">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
-      <a href={otherLangUrl}>
+      <a href={otherLangUrl} title="Change language">
         <Icon
           name="material-symbols:g-translate"
-          class="size-6 md:size-8 hover:text-accent"
+          class="size-6 md:size-8 hover:text-accent transition-colors"
         />
       </a>
     </nav>
@@ -75,27 +88,18 @@ const otherLangUrl = `/${t.language_selector.other_lang_code}/`;
   >
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <ul class="flex flex-col items-center space-y-4">
-        <li>
-          <a
-            href="#experience"
-            class="text-lg hover:text-accent transition-colors mobile-nav-link"
-            >{t.nav.experience}</a
-          >
-        </li>
-        <li>
-          <a
-            href="#projects"
-            class="text-lg hover:text-accent transition-colors mobile-nav-link"
-            >{t.nav.projects}</a
-          >
-        </li>
-        <li>
-          <a
-            href="#about"
-            class="text-lg hover:text-accent transition-colors mobile-nav-link"
-            >{t.nav.about}</a
-          >
-        </li>
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.url}
+                class="text-lg hover:text-accent transition-colors mobile-nav-link"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
         <li class="pt-4">
           <a
             href={otherLangUrl}

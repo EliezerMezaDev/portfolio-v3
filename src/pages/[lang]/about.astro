@@ -1,0 +1,80 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import esTranslations from "@/content/i18n/es.json";
+import enTranslations from "@/content/i18n/en.json";
+
+const { lang } = Astro.params;
+
+if (lang !== "es" && lang !== "en") {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
+
+const t = lang === "es" ? esTranslations : enTranslations;
+const { title, paragraph_1, paragraph_2, paragraph_3 } = t.about_page;
+---
+
+<Layout t={t} lang={lang}>
+  <section id="about-page" class="min-h-screen py-20 md:py-32">
+    <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 items-start">
+        <div class="text-content">
+          <a
+            href={`/${lang}/`}
+            class="inline-flex items-center gap-2 text-brand-light/70 hover:text-accent transition-colors mb-8"
+          >
+            <Icon name="lucide:arrow-left" class="size-4" />
+            {t.about_page.back_to_home}
+          </a>
+
+          <h1
+            class="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-8"
+            data-about-title
+          >
+            {title}
+          </h1>
+
+          <div class="text-lg text-brand-light/80 space-y-6" data-about-text>
+            <p>{paragraph_1}</p>
+            <p>{paragraph_2}</p>
+            <p>{paragraph_3}</p>
+          </div>
+        </div>
+
+        <div
+          class="image-container relative w-full max-w-xs mx-auto lg:mx-0"
+          data-about-image
+        >
+          <div
+            class="absolute -top-4 -left-4 w-full h-full border-2 border-accent rounded-lg -z-10"
+          >
+          </div>
+          <img
+            src="/images/me.webp"
+            alt="Foto de [Tu Nombre]"
+            class="w-full h-auto rounded-lg"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+
+  document.addEventListener("astro:page-load", () => {
+    const tl = gsap.timeline({
+      defaults: { opacity: 0, ease: "power3.out" },
+      delay: 0.3,
+    });
+
+    tl.from("[data-about-title]", { y: 30, duration: 0.8 })
+      .from(
+        "[data-about-text] > p",
+        { y: 20, stagger: 0.15, duration: 0.6 },
+        "-=0.6"
+      )
+      .from("[data-about-image]", { scale: 0.9, duration: 1 }, "-=0.8");
+  });
+</script>
