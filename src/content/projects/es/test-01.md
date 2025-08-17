@@ -21,13 +21,13 @@ Aquí va la descripción **completa y detallada** del proyecto. Puedes usar todo
 
 - **Objetivo:** Crear una plataforma escalable para vender productos en línea.
 - **Tecnologías Clave:** Se utilizó un stack MERN con un enfoque en el rendimiento.
-- **Mi Contribución:** Fui responsable del desarrollo completo del backend, la API REST y la integración con pasarelas de pago.
+- **Mi Contribución:** Fui responsable del desarrollo completo del backend, la API REST y la integración con pasarelas de pago. 
 - **Objetivo:** Crear una plataforma escalable para vender productos en línea.
 - **Tecnologías Clave:** Se utilizó un stack MERN con un enfoque en el rendimiento.
 - **Mi Contribución:** Fui responsable del desarrollo completo del backend, la API REST y la integración con pasarelas de pago.
 - **Objetivo:** Crear una plataforma escalable para vender productos en línea.
 - **Tecnologías Clave:** Se utilizó un stack MERN con un enfoque en el rendimiento.
-- **Mi Contribución:** Fui responsable del desarrollo completo del backend, la API REST y la integración con pasarelas de pago.
+- **Mi Contribución:** Fui responsable del desarrollo completo del backend, la API REST y la integración con pasarelas de pago. 
 - **Objetivo:** Crear una plataforma escalable para vender productos en línea.
 - **Tecnologías Clave:** Se utilizó un stack MERN con un enfoque en el rendimiento.
 - **Mi Contribución:** Fui responsable del desarrollo completo del backend, la API REST y la integración con pasarelas de pago.
