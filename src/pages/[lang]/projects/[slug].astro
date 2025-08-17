@@ -1,0 +1,197 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import esTranslations from "@/content/i18n/es.json";
+import enTranslations from "@/content/i18n/en.json";
+
+export async function getStaticPaths() {
+  const allProjects = await getCollection("projects");
+  return allProjects.map((entry) => {
+    const [lang, slug] = entry.slug.split("/");
+    return {
+      params: { lang, slug },
+    };
+  });
+}
+
+const { lang, slug } = Astro.params;
+const entrySlug = `${lang}/${slug}`;
+const entry = await getEntry("projects", entrySlug);
+
+if (!entry) {
+  return Astro.redirect("/404");
+}
+
+const { Content } = await entry.render();
+const t = lang === "es" ? esTranslations : enTranslations;
+const { title, summary, tags, galleryImages, demoUrl, repoUrl } = entry.data;
+const techDictionary = t.technologies;
+---
+
+<Layout t={t} lang={lang}>
+  <main class="main">
+    <div
+      class="project-detail-layout relative flex flex-col lg:flex-row min-h-screen"
+    >
+      <aside
+        class="w-full lg:w-[40%] lg:h-screen lg:sticky lg:top-0 p-8 md:p-12 lg:p-16 flex flex-col justify-between overflow-y-auto bg-brand-darker z-10"
+      >
+        <div>
+          <a
+            href={`/${lang}/projects`}
+            class="inline-flex items-center gap-2 text-brand-light/70 hover:text-accent transition-colors mb-8"
+          >
+            <Icon name="lucide:arrow-left" class="size-4" />
+            {t.project_detail_page.back_to_projects}
+          </a>
+          <h1
+            class="text-4xl md:text-5xl font-bold text-brand-light tracking-tighter mb-4"
+          >
+            {title}
+          </h1>
+          <p class="text-lg text-brand-light/70 mb-8">{summary}</p>
+          <div
+            class="prose prose-invert prose-lg max-w-none text-brand-light/80"
+          >
+            <Content />
+          </div>
+        </div>
+        <div class="mt-12">
+          <h3 class="text-lg font-semibold text-brand-light mb-4">
+            {t.project_detail_page.tech_stack}
+          </h3>
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+            {
+              tags.map((tagKey) => {
+                const tech = techDictionary[tagKey];
+                if (!tech) return null;
+                return (
+                  <div class="flex items-center gap-2" title={tech.name}>
+                    <Icon name={tech.icon} class="size-6" />
+                    <span class="text-md text-brand-light/80">{tech.name}</span>
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
+      </aside>
+
+      <main id="gallery-container" class="w-full lg:w-[60%]">
+        <div id="gallery-track" class="flex h-auto lg:h-full">
+          {
+            galleryImages ? (
+              galleryImages.map((image) => (
+                <div class="panel w-full h-screen flex-shrink-0 flex items-center justify-center p-8">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                  />
+                </div>
+              ))
+            ) : (
+              <div class="slide w-full h-screen flex-shrink-0 flex items-center justify-center p-8">
+                <p class="text-brand-light/50">
+                  No hay imágenes en la galería para este proyecto.
+                </p>
+              </div>
+            )
+          }
+        </div>
+      </main>
+    </div>
+  </main>
+
+  <div class="fixed bottom-8 right-8 z-20 flex gap-4">
+    {
+      demoUrl && (
+        <a
+          href={demoUrl}
+          target="_blank"
+          class="inline-block px-6 py-3 bg-accent text-white font-semibold rounded-full hover:bg-accent-darker transition-all duration-300 shadow-lg hover:scale-105"
+        >
+          <Icon
+            name="lucide:external-link"
+            class="inline-block size-5 mr-2 -mt-1"
+          />
+          Ver Demo
+        </a>
+      )
+    }
+    {
+      repoUrl && (
+        <a
+          href={repoUrl}
+          target="_blank"
+          class="inline-block px-6 py-3 bg-brand-dark/80 backdrop-blur-sm border border-brand-light/50 text-brand-light font-semibold rounded-full hover:bg-brand-light/10 transition-all duration-300 shadow-lg hover:scale-105"
+        >
+          <Icon name="lucide:github" class="inline-block size-5 mr-2 -mt-1" />
+          Código
+        </a>
+      )
+    }
+  </div>
+</Layout>
+
+<style is:global>
+  body {
+    overflow-x: hidden;
+  }
+
+  .project-detail-layout .prose h2 {
+    @apply text-2xl font-bold text-accent mb-4 mt-8;
+  }
+
+  .project-detail-layout .prose a {
+    @apply text-accent hover:underline;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { Observer } from "gsap/Observer";
+
+  gsap.registerPlugin(Observer);
+
+  document.addEventListener("astro:page-load", () => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      const galleryContainer =
+        document.querySelector<HTMLElement>("#gallery-container");
+      const galleryTrack =
+        document.querySelector<HTMLElement>("#gallery-track");
+      const panels = gsap.utils.toArray<HTMLElement>(".panel");
+
+      if (!galleryContainer || !galleryTrack || panels.length === 0) return;
+
+      const galleryTimeline = gsap.to(galleryTrack, {
+        x: () => -(galleryTrack.scrollWidth - galleryContainer.clientWidth),
+        ease: "none",
+        paused: true,
+      });
+
+      const galleryObserver = Observer.create({
+        target: galleryContainer,
+        type: "wheel,touch",
+        onWheel: (self) => {
+          self.event.preventDefault();
+
+          let progress = galleryTimeline.progress() + self.deltaY / 500;
+
+          gsap.to(galleryTimeline, {
+            progress: progress,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        },
+      });
+
+      return () => {
+        if (galleryObserver) galleryObserver.kill();
+      };
+    });
+  });
+</script>

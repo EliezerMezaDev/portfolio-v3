@@ -62,5 +62,9 @@
   "all_projects_page": {
     "title": "Todos mis Proyectos",
     "filter_all": "Todos"
+  },
+  "project_detail_page": {
+    "back_to_projects": "Volver a Proyectos",
+    "tech_stack": "Tecnologías Utilizadas"
   }
 }

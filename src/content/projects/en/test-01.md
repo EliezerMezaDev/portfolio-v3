@@ -9,6 +9,8 @@ portraitImage:
 galleryImages:
   - src: "/projects/test-01/1.png"
     alt: "test-01"
+  - src: "/projects/test-01/2.png"
+    alt: "test-02"
 demoUrl: "https://github.com/"
 repoUrl: "https://github.com/"
 ---
