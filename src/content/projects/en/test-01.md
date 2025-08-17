@@ -4,12 +4,12 @@ summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo
 tags: ["react", "nodejs", "postgresql", "tailwind"] 
 isFeatured: true
 portraitImage:
-  src: "/projects/test-01/cover.png"
+  src: "/images/projects/test-01/cover.png"
   alt: "cover"
 galleryImages:
-  - src: "/projects/test-01/1.png"
+  - src: "/images/projects/test-01/1.png"
     alt: "test-01"
-  - src: "/projects/test-01/2.png"
+  - src: "/images/projects/test-01/2.png"
     alt: "test-02"
 demoUrl: "https://github.com/"
 repoUrl: "https://github.com/"

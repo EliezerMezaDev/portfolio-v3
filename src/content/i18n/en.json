@@ -14,10 +14,10 @@
     "other_lang_name": "Español"
   },
   "hero": {
-    "title": "Hi, I'm Eliezer A Meza",
-    "subtitle": "A passionate software developer focused on creating modern and fast web experiences. I turn complex ideas into elegant and functional solutions.",
-    "cta": "Explore my projects",
-    "cv": "Download cv"
+    "greeting": "Hi, i'm",
+    "name": "Eliezer A Meza",
+    "description": "+4 years of experience. Software developer from Nueva Esparta, Venezuela.",
+    "cta": "Explore my projects"
   },
   "experience_section": {
     "title": "Work Experience"

@@ -1,10 +1,13 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
   content: {
-    title: string;
-    subtitle: string;
+    greeting: string;
+    name: string;
+    tagline: string;
+    description: string;
     cta: string;
-    cv: string;
   };
 }
 const { content } = Astro.props;
@@ -12,95 +15,88 @@ const { content } = Astro.props;
 
 <section
   id="hero"
-  class="relative h-screen flex items-center justify-center text-center px-4"
+  class="container mx-auto relative min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8"
 >
-  <div class="absolute inset-0 bg-brand-gradient opacity-30 -z-10"></div>
+  <div
+    class="w-full max-w-6xl flex flex-col-reverse items-center gap-4 lg:grid lg:grid-cols-[2fr_1fr]"
+  >
+    <div class="text-center lg:text-left">
+      <p class="hero-item text-lg font-mono text-accent mb-2">
+        {content.greeting}
+      </p>
+      <h1
+        class="hero-item text-4xl sm:text-6xl md:text-7xl font-bold text-brand-light tracking-tighter"
+      >
+        {content.name}
+      </h1>
 
-  <div class="max-w-10xl">
-    <h1
-      id="hero-title"
-      class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-white opacity-0"
-    >
-      {content.title}
-    </h1>
-    <p
-      id="hero-subtitle"
-      class="mt-4 text-lg sm:text-xl text-brand-light/80 max-w-2xl mx-auto opacity-0"
-    >
-      {content.subtitle}
-    </p>
-    <div id="hero-cta-wrapper" class="mt-8 opacity-0 flex justify-center gap-2">
+      <p
+        class="hero-item text-lg text-brand-light/80 max-w-xl mt-2 mx-auto lg:mx-0"
+      >
+        {content.description}
+      </p>
       <a
         href="#projects"
-        class="inline-block px-8 py-3 border-2 border-accent bg-accent text-white font-semibold rounded-full hover:bg-accent-darker transition-colors duration-300"
+        class="hero-item inline-block mt-4 p-4 border border-accent text-accent font-mono text-lg rounded hover:bg-accent-darker/20 transition-colors duration-300"
       >
         {content.cta}
       </a>
-
-      <a
-        href="/"
-        class="inline-block px-8 py-3 border-2 border-accent hover:bg-accent-darker text-accent-darker hover:text-white font-semibold rounded-full transition-colors duration-300"
-      >
-        {content.cv}
-      </a>
     </div>
-  </div>
 
-  <div
-    id="scroll-indicator"
-    class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0"
-  >
-    <div
-      class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center items-start p-1"
-    >
-      <div class="w-1 h-2 bg-white rounded-full animate-bounce"></div>
+    <div class="hero-item flex justify-center items-center">
+      <picture
+        class="relative w-[200px] lg:w-[300px] xl:w-[350px] aspect-square"
+      >
+        <img
+          id="portrait"
+          src="/images/me.webp"
+          alt="Foto de [Tu Nombre]"
+          class="w-full h-full object-cover border-4 border-accent/50"
+        />
+      </picture>
     </div>
   </div>
 </section>
+
+<style>
+  #portrait {
+    animation: 10s blobShape infinite ease-in-out;
+  }
+
+  .hero-item {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes blobShape {
+    0%,
+    100% {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    34% {
+      border-radius: 80% 50% 60% 40% / 30% 70% 60% 60%;
+    }
+    67% {
+      border-radius: 50% 70% 50% 60% / 40% 50% 50% 50%;
+    }
+  }
+</style>
 
 <script>
   import { gsap } from "gsap";
 
   function animateHero() {
-    const tl = gsap.timeline({
-      defaults: {
-        duration: 0.8,
-        ease: "power3.out",
-      },
-    });
+    const heroItems = gsap.utils.toArray(".hero-item");
 
-    tl.to("#hero-title", {
+    gsap.to(heroItems, {
       opacity: 1,
-      y: -20,
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.2,
+      delay: 0.5,
     });
-
-    tl.to(
-      "#hero-subtitle",
-      {
-        opacity: 1,
-        y: -15,
-      },
-      "-=0.6"
-    );
-
-    tl.to(
-      "#hero-cta-wrapper",
-      {
-        opacity: 1,
-        y: -10,
-      },
-      "-=0.6"
-    );
-
-    tl.to(
-      "#scroll-indicator",
-      {
-        opacity: 1,
-        duration: 1,
-      },
-      "+=0.2"
-    );
   }
 
-  document.addEventListener("DOMContentLoaded", animateHero);
+  document.addEventListener("astro:page-load", animateHero);
 </script>

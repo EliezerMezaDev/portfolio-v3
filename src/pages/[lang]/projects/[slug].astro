@@ -25,17 +25,24 @@ if (!entry) {
 
 const { Content } = await entry.render();
 const t = lang === "es" ? esTranslations : enTranslations;
-const { title, summary, tags, galleryImages, demoUrl, repoUrl } = entry.data;
+const { title, summary, portraitImage, tags, galleryImages, demoUrl, repoUrl } =
+  entry.data;
 const techDictionary = t.technologies;
 ---
 
 <Layout t={t} lang={lang}>
   <div class="project-detail-layout overflow-x-hidden">
-    <div class="relative flex flex-col lg:flex-row">
+    <div class="relative max-sm:p-2 flex flex-col lg:flex-row">
       <aside
         class="w-full lg:w-[40%] lg:h-screen lg:sticky lg:top-0 px-4 md:px-6 lg:px-8 py-20 flex flex-col justify-between overflow-y-auto bg-brand-darker z-10"
       >
         <div>
+          <img
+            src={portraitImage.src}
+            alt={portraitImage.alt}
+            class="w-full mb-4 sm:hidden"
+          />
+
           <h1
             class="text-4xl md:text-5xl font-bold text-brand-light tracking-tighter mb-4"
           >
@@ -69,7 +76,7 @@ const techDictionary = t.technologies;
         </div>
       </aside>
 
-      <main id="gallery-container" class="w-full lg:w-[60%]">
+      <main id="gallery-container" class="w-full lg:w-[60%] overflow-hidden">
         <div id="gallery-track" class="flex flex-col lg:flex-row">
           {
             galleryImages && galleryImages.length > 0 ? (
