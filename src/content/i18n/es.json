@@ -13,9 +13,21 @@
     "other_lang_code": "en",
     "other_lang_name": "English"
   },
+  "personal_info": {
+    "name": "Eliezer A meza",
+    "email": "eliezermeza.dev@gamil.com",
+    "location": "Nueva Esparta, Venezuela",
+    "role": "Desarrollador de software",
+    "role_en": "Software Developer",
+    "profile_image": "/images/me.webp",
+    "experience_years": 4,
+    "social_links": {
+      "linkedin": "https://linkedin.com/in/tu-usuario",
+      "github": "https://github.com/tu-usuario"
+    }
+  },
   "hero": {
     "greeting": "Hola, soy",
-    "name": "Eliezer A Meza",
     "description": "+4 años de experiencia. Desarrollador de software de Nueva Esparta, Venezuela.",
     "cta": "Explora mis proyectos"
   },
@@ -40,9 +52,6 @@
   },
   "skills_section": {
     "title": "Habilidades",
-    "frontend_title": "Frontend",
-    "backend_title": "Backend",
-    "bdd_title": "Bases de datos",
     "frontend_keys": [
       "astro",
       "react",
@@ -70,8 +79,11 @@
   "about_page": {
     "title": "Sobre Mí",
     "back_to_home": "Volver a Inicio",
-    "paragraph_1": "Hola, soy [Tu Nombre]. Mi fascinación por el desarrollo web comenzó en [año o momento], cuando creé mi primer sitio con HTML y CSS. Lo que empezó como curiosidad, rápidamente se convirtió en una pasión por construir experiencias digitales intuitivas y de alto rendimiento.",
+    "paragraph_1": "Hola, soy Eliezer A Meza. Mi fascinación por el desarrollo web comenzó en [año o momento], cuando creé mi primer sitio con HTML y CSS. Lo que empezó como curiosidad, rápidamente se convirtió en una pasión por construir experiencias digitales intuitivas y de alto rendimiento.",
     "paragraph_2": "A lo largo de mi carrera, he tenido el privilegio de trabajar en una variedad de proyectos, desde aplicaciones interactivas hasta complejas plataformas de e-commerce. Mi enfoque es siempre el mismo: escribir código limpio, escalable y centrado en el usuario.",
     "paragraph_3": "Cuando no estoy frente a un teclado, disfruto de [tu hobby 1], [tu hobby 2] o explorando nuevas tecnologías en el siempre cambiante ecosistema del desarrollo web."
+  },
+  "footer": {
+    "copyright": "© {year} {name}. Todos los Derechos Reservados."
   }
 }

@@ -13,9 +13,21 @@
     "other_lang_code": "es",
     "other_lang_name": "Español"
   },
+  "personal_info": {
+    "name": "Eliezer A Meza",
+    "email": "eliezermeza.dev@gamil.com",
+    "location": "Nueva Esparta, Venezuela",
+    "role": "Desarrollador de software",
+    "role_en": "Software Developer",
+    "profile_image": "/images/me.webp",
+    "experience_years": 4,
+    "social_links": {
+      "linkedin": "https://www.linkedin.com/in/eliezer-a-meza-7a1b882b9/",
+      "github": "https://github.com/EliezerMezaDev"
+    }
+  },
   "hero": {
     "greeting": "Hi, i'm",
-    "name": "Eliezer A Meza",
     "description": "+4 years of experience. Software developer from Nueva Esparta, Venezuela.",
     "cta": "Explore my projects"
   },
@@ -40,9 +52,6 @@
   },
   "skills_section": {
     "title": "Skills",
-    "frontend_title": "Frontend",
-    "backend_title": "Backend",
-    "bdd_title": "Database",
     "frontend_keys": [
       "astro",
       "react",
@@ -70,8 +79,11 @@
   "about_page": {
     "title": "About Me",
     "back_to_home": "Back to Home",
-    "paragraph_1": "Hello, I'm [Your Name]. My fascination with web development began back in [year or moment], when I built my first site with HTML & CSS. What started as a curiosity quickly turned into a passion for building intuitive, high-performance digital experiences.",
+    "paragraph_1": "Hello, I'm Eliezer A Meza. My fascination with web development began back in [year or moment], when I built my first site with HTML & CSS. What started as a curiosity quickly turned into a passion for building intuitive, high-performance digital experiences.",
     "paragraph_2": "Throughout my career, I've had the privilege of working on a variety of projects, from interactive applications to complex e-commerce platforms. My approach is always the same: to write clean, scalable, and user-centric code.",
     "paragraph_3": "When I'm not in front of a keyboard, I enjoy [your hobby 1], [your hobby 2], or exploring new technologies in the ever-changing web development ecosystem."
+  },
+  "footer": {
+    "copyright": "© {year} {name}. All Rights Reserved."
   }
 }

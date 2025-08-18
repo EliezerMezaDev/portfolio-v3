@@ -18,15 +18,7 @@ interface Props {
 }
 
 const { t } = Astro.props;
-const {
-  title,
-  frontend_title,
-  backend_title,
-  bdd_title,
-  frontend_keys,
-  backend_keys,
-  database_keys,
-} = t.skills_section;
+const { title, frontend_keys, backend_keys, database_keys } = t.skills_section;
 const techDictionary = t.technologies;
 ---
 
@@ -39,7 +31,6 @@ const techDictionary = t.technologies;
 
   <div class="w-full max-w-5xl mx-auto flex flex-col gap-12">
     <div class="frontend-section">
-      <h3 class="text-2xl font-semibold text-center mb-6">{frontend_title}</h3>
       <div
         class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-6"
       >
@@ -68,7 +59,6 @@ const techDictionary = t.technologies;
     </div>
 
     <div class="backend-section">
-      <h3 class="text-2xl font-semibold text-center mb-6">{backend_title}</h3>
       <div
         class="grid grid-cols-2 md:grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-6"
       >
@@ -97,7 +87,6 @@ const techDictionary = t.technologies;
     </div>
 
     <div class="backend-section">
-      <h3 class="text-2xl font-semibold text-center mb-6">{bdd_title}</h3>
       <div
         class="grid grid-cols-2 md:grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-6"
       >
@@ -136,8 +125,6 @@ const techDictionary = t.technologies;
   document.addEventListener("astro:page-load", () => {
     gsap.context(() => {
       const allSkillItems = gsap.utils.toArray<HTMLElement>(".skill-item");
-
-      console.log(allSkillItems);
 
       allSkillItems.forEach((item, index) => {
         gsap.to(item, {

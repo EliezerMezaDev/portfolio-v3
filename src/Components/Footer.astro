@@ -1,0 +1,56 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  t: {
+    footer: {
+      copyright: string;
+    };
+    personal_info: {
+      name: string;
+      social_links: {
+        linkedin: string;
+        github: string;
+      };
+    };
+  };
+}
+
+const { t } = Astro.props;
+const info = t.personal_info;
+const currentYear = new Date().getFullYear();
+const copyrightText = t.footer.copyright
+  .replace("{year}", currentYear.toString())
+  .replace("{name}", info.name);
+---
+
+<footer class="w-full border-t border-brand-light/10">
+  <div
+    class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20"
+  >
+    <p class="text-sm text-brand-light/60 text-center sm:text-left">
+      {copyrightText}
+    </p>
+
+    <div class="flex items-center gap-4">
+      <a
+        href={info.social_links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        class="text-brand-light/60 hover:text-accent transition-colors"
+      >
+        <Icon name="lucide:github" class="size-5" />
+      </a>
+      <a
+        href={info.social_links.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+        class="text-brand-light/60 hover:text-accent transition-colors"
+      >
+        <Icon name="lucide:linkedin" class="size-5" />
+      </a>
+    </div>
+  </div>
+</footer>
