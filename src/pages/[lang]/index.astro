@@ -25,7 +25,7 @@ const featuredProjects = await getCollection("projects", ({ id, data }) => {
 const t = lang === "es" ? esTranslations : enTranslations;
 ---
 
-<Layout t={t} lang={lang}>
+<Layout t={t} lang={lang} showFooter={true}>
   <Hero t={t} />
 
   <ProjectsPreview projects={featuredProjects} t={t} lang={lang} />

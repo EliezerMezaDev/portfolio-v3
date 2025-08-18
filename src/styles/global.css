@@ -10,3 +10,7 @@
 * {
   scrollbar-width: none;
 }
+
+#main-header.is-scrolled {
+  @apply bg-brand-darker/90 backdrop-blur-sm shadow-lg;
+}

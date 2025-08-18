@@ -1,16 +1,29 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
-//? components
+import { ClientRouter } from "astro:transitions";
+import { Icon } from "astro-icon/components";
+
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 
 export interface Props {
-  t: Record<string, any>;
+  t: {
+    personal_info: {
+      email: string;
+      social_links: {
+        github: string;
+        linkedin: string;
+      };
+    };
+  };
   lang: "es" | "en";
+  showFooter: boolean;
 }
-const { t, lang } = Astro.props;
+
+const { t, lang, showFooter } = Astro.props;
+console.log(showFooter);
+const info = t.personal_info;
 ---
 
 <!doctype html>
@@ -25,9 +38,90 @@ const { t, lang } = Astro.props;
   </head>
   <body class="bg-brand-darker text-brand-light">
     <Header t={t} lang={lang} />
+
+    {
+      showFooter == true && (
+        <div class="hidden lg:flex fixed bottom-0 left-6 flex-col items-center gap-6 z-20">
+          <a
+            href={info.social_links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="text-brand-light/60 hover:text-accent transition-all"
+          >
+            <Icon name="lucide:github" class="size-6" />
+          </a>
+          <a
+            href={info.social_links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            class="text-brand-light/60 hover:text-accent transition-all"
+          >
+            <Icon name="lucide:linkedin" class="size-6" />
+          </a>
+
+          <div class="w-px h-24 bg-brand-light/40" />
+        </div>
+      )
+    }
+
+    {
+      showFooter && (
+        <div class="hidden lg:flex fixed bottom-0 right-6 flex-col items-center gap-6 z-20">
+          <a
+            href={`mailto:${info.email}`}
+            class="font-mono text-sm tracking-widest text-brand-light/60 hover:text-accent transition-all"
+            style="writing-mode: vertical-rl;"
+          >
+            {info.email}
+          </a>
+
+          <div class="w-px h-24 bg-brand-light/40" />
+        </div>
+      )
+    }
+
     <main>
       <slot />
     </main>
-    <Footer t={t} lang={lang} />
+    {showFooter && <Footer t={t} lang={lang} />}
   </body>
 </html>
+
+  <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      document.addEventListener("astro:page-load", () => {
+        const header = document.querySelector<HTMLElement>("#main-header");
+        if (!header) return;
+
+        // Usamos ScrollTrigger.create para observar el scroll
+        ScrollTrigger.create({
+          start: "top top-=-100", // Un umbral de 100px para empezar a reaccionar
+          onUpdate: (self) => {
+            // Si hacemos scroll hacia abajo (direction 1), oculta el header
+            if (self.direction === 1) {
+              gsap.to(header, { y: "-100%", duration: 0.3, ease: "power2.inOut" });
+            } 
+            // Si hacemos scroll hacia arriba (direction -1), muestra el header
+            else {
+              gsap.to(header, { y: "0%", duration: 0.3, ease: "power2.inOut" });
+            }
+          }
+        });
+
+        // El trigger para cambiar el fondo se mantiene igual, es correcto y eficiente.
+        ScrollTrigger.create({
+          trigger: 'body',
+          start: "100px top",
+          toggleClass: {
+            targets: header,
+            className: "is-scrolled"
+          }
+        });
+      });
+    </script>

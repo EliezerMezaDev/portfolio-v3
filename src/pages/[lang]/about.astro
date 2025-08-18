@@ -14,7 +14,7 @@ const t = lang === "es" ? esTranslations : enTranslations;
 const { title, paragraph_1, paragraph_2, paragraph_3 } = t.about_page;
 ---
 
-<Layout t={t} lang={lang}>
+<Layout t={t} lang={lang} showFooter={false}>
   <section id="about-page" class="min-h-screen py-20 md:py-32">
     <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 items-start">
@@ -28,7 +28,7 @@ const { title, paragraph_1, paragraph_2, paragraph_3 } = t.about_page;
           </a>
 
           <h1
-            class="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-8"
+            class="text-4xl md:text-5xl font-bold text-brand-light tracking-tighter mb-8"
             data-about-title
           >
             {title}
