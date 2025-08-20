@@ -1,9 +1,11 @@
 ---
-role: "Analista de desarrollo"
+role: "Software Developer"
 company: "Spartan Techs C.A."
-date: "Oct 2021 - Feb 2025"
-current: false
+companyUrl: "https://grupospartan.com/"
+date: "Oct 2021 - Mar 2025"
+type: "work"
 ---
-- Analicé requisitos de más de 15 clientes, desarrollando estrategias de gestión de proyectos que optimizaron los tiempos de desarrollo en un 20%.
-- Diseñé y desarrollé aplicaciones empresariales utilizadas por más de 200 usuarios activos, integrando funciones avanzadas como control de inventarios y análisis de costos.
-- Participé rotativamente en equipos de desarrollo Frontend y Backend, implementando soluciones que redujeron los errores de integración en un 15%.
+- Developed and implemented new **project management strategies** based on requirements analysis from **over 15 clients**, achieving a **20% optimization in development cycles**.
+- Designed and developed **enterprise applications** for **over 200 active users**, integrating **advanced features** such as inventory control and cost analysis.
+- Actively contributed to **Frontend and Backend development** teams, implementing full-stack solutions that improved code cohesion and **reduced integration errors by 15%**.
+- *Main tech stack: Ionic/Angular, React, Nextjs*

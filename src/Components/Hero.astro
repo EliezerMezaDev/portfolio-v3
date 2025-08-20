@@ -23,6 +23,11 @@ interface Props {
 
 const { t } = Astro.props;
 const { hero, personal_info } = t;
+
+const descriptionText = hero.description
+  .replace("{experience_years}", personal_info.experience_years.toString())
+  .replace("{role}", personal_info.role)
+  .replace("{location}", personal_info.location);
 ---
 
 <section
@@ -45,7 +50,7 @@ const { hero, personal_info } = t;
       <p
         class="hero-item text-lg text-brand-light/70 max-w-xl mt-6 mx-auto lg:mx-0"
       >
-        {hero.description}
+        {descriptionText}
       </p>
       <div class="hero-item mt-12">
         <a
@@ -112,3 +117,13 @@ const { hero, personal_info } = t;
 
   document.addEventListener("astro:page-load", animateHero);
 </script>
+
+<!-- 
+
+
+
+
+
+
+
+-->

@@ -10,9 +10,16 @@ interface Props {
 
 const { lang, t } = Astro.props;
 
-const experienceEntries = await getCollection("experience", ({ id }) => {
+const allExperience = await getCollection("experience", ({ id }) => {
   return id.startsWith(`${lang}/`);
 }).then((entries) => entries.sort((a, b) => a.slug.localeCompare(b.slug)));
+
+const workExperience = allExperience.filter(
+  (entry) => entry.data.type === "work"
+);
+const consultingExperience = allExperience.filter(
+  (entry) => entry.data.type === "consulting"
+);
 ---
 
 <Section title={t.experience_section.title} id="experience">
@@ -29,45 +36,98 @@ const experienceEntries = await getCollection("experience", ({ id }) => {
     >
     </div>
 
-    <ol class="relative flex flex-col gap-16">
-      {
-        await Promise.all(
-          experienceEntries.map(async (entry) => {
-            const { Content } = await entry.render();
-            const { role, company, companyUrl, date } = entry.data;
+    {
+      workExperience.length > 0 && (
+        <div class="mb-16">
+          <h3 class="text-2xl font-semibold text-center mb-8">
+            {t.experience_section.work_title}
+          </h3>
+          <ol class="relative flex flex-col gap-16">
+            {await Promise.all(
+              workExperience.map(async (entry) => {
+                const { Content } = await entry.render();
+                const { role, company, companyUrl, date } = entry.data;
 
-            return (
-              <li class="timeline-item flex items-start gap-x-6 translate-y-10">
-                <div class="flex items-center justify-center size-8 rounded-full bg-accent/20 border-2 border-accent shrink-0 mt-1 ml-0.5">
-                  <div class="size-2.5 rounded-full bg-accent" />
-                </div>
-                <div class="flex-grow">
-                  <time class="text-sm text-brand-light/50">{date}</time>
-                  <h3 class="text-xl font-bold text-brand-light mt-1">
-                    {role}
-                  </h3>
-                  {companyUrl ? (
-                    <a
-                      href={companyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-lg text-brand-light/80 hover:text-accent transition-colors"
-                    >
-                      @{company}
-                    </a>
-                  ) : (
-                    <h4 class="text-lg text-brand-light/80">@{company}</h4>
-                  )}
-                  <div class="prose prose-invert mt-4 text-brand-light/80">
-                    <Content />
-                  </div>
-                </div>
-              </li>
-            );
-          })
-        )
-      }
-    </ol>
+                return (
+                  <li class="timeline-item flex items-start gap-x-6">
+                    <div class="flex items-center justify-center size-8 rounded-full bg-accent/20 border-2 border-accent shrink-0 mt-1 ml-0.5">
+                      <div class="size-2.5 rounded-full bg-accent" />
+                    </div>
+                    <div class="flex-grow">
+                      <time class="text-sm text-brand-light/50">{date}</time>
+                      <h3 class="text-xl font-bold text-brand-light mt-1">
+                        {role}
+                      </h3>
+                      {companyUrl ? (
+                        <a
+                          href={companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-lg text-brand-light/80 hover:text-accent transition-colors"
+                        >
+                          @{company}
+                        </a>
+                      ) : (
+                        <h4 class="text-lg text-brand-light/80">@{company}</h4>
+                      )}
+                      <div class="prose prose-invert mt-4 text-brand-light/80">
+                        <Content />
+                      </div>
+                    </div>
+                  </li>
+                );
+              })
+            )}
+          </ol>
+        </div>
+      )
+    }
+
+    {
+      consultingExperience.length > 0 && (
+        <div>
+          <h3 class="text-2xl font-semibold text-center mb-8">
+            {t.experience_section.consulting_title}
+          </h3>
+          <ol class="relative flex flex-col gap-16">
+            {await Promise.all(
+              consultingExperience.map(async (entry) => {
+                const { Content } = await entry.render();
+                const { role, company, companyUrl, date } = entry.data;
+                return (
+                  <li class="timeline-item flex items-start gap-x-6">
+                    <div class="flex items-center justify-center size-8 rounded-full bg-accent/20 border-2 border-accent shrink-0 mt-1 ml-0.5">
+                      <div class="size-2.5 rounded-full bg-accent" />
+                    </div>
+                    <div class="flex-grow">
+                      <time class="text-sm text-brand-light/50">{date}</time>
+                      <h3 class="text-xl font-bold text-brand-light mt-1">
+                        {role}
+                      </h3>
+                      {companyUrl ? (
+                        <a
+                          href={companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-lg text-brand-light/80 hover:text-accent transition-colors"
+                        >
+                          @{company}
+                        </a>
+                      ) : (
+                        <h4 class="text-lg text-brand-light/80">@{company}</h4>
+                      )}
+                      <div class="prose prose-invert mt-4 text-brand-light/80">
+                        <Content />
+                      </div>
+                    </div>
+                  </li>
+                );
+              })
+            )}
+          </ol>
+        </div>
+      )
+    }
   </div>
 </Section>
 
@@ -113,7 +173,7 @@ const experienceEntries = await getCollection("experience", ({ id }) => {
       items.forEach((item) => {
         gsap.from(item, {
           opacity: 0,
-          x: -100,
+          x: -50,
           duration: 1,
           ease: "power3.out",
           scrollTrigger: {

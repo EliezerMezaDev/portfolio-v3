@@ -7,7 +7,7 @@ const experienceCollection = defineCollection({
     company: z.string(),
     companyUrl: z.string().url().optional(),
     date: z.string(),
-    current: z.boolean().default(false),
+    type: z.enum(["work", "consulting"]),
   }),
 });
 
@@ -29,7 +29,7 @@ const projectsCollection = defineCollection({
         z.object({
           src: z.string(),
           alt: z.string(),
-        })
+        }),
       )
       .optional(),
 

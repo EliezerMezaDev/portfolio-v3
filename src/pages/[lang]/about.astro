@@ -11,7 +11,7 @@ if (lang !== "es" && lang !== "en") {
 }
 
 const t = lang === "es" ? esTranslations : enTranslations;
-const { title, paragraph_1, paragraph_2, paragraph_3 } = t.about_page;
+const { title, paragraph_1, paragraph_2, cta_cv } = t.about_page;
 ---
 
 <Layout t={t} lang={lang} showFooter={false}>
@@ -37,7 +37,6 @@ const { title, paragraph_1, paragraph_2, paragraph_3 } = t.about_page;
           <div class="text-lg text-brand-light/80 space-y-6" data-about-text>
             <p>{paragraph_1}</p>
             <p>{paragraph_2}</p>
-            <p>{paragraph_3}</p>
           </div>
         </div>
 
@@ -54,6 +53,15 @@ const { title, paragraph_1, paragraph_2, paragraph_3 } = t.about_page;
             alt="Foto de [Tu Nombre]"
             class="w-full h-auto rounded-lg"
           />
+
+          <div class="mt-4 mb-8">
+            <a
+              href="#projects"
+              class="px-5 py-2 border-2 border-accent text-accent font-mono text-lg rounded hover:bg-accent/30 transition-all duration-300 flex items-center"
+            >
+              {cta_cv}
+            </a>
+          </div>
         </div>
       </div>
     </div>

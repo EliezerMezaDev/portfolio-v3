@@ -28,11 +28,13 @@
   },
   "hero": {
     "greeting": "Hi, i'm",
-    "description": "+4 years of experience. Software developer from Nueva Esparta, Venezuela.",
+    "description": "{experience_years} years of experience. {role} from {location}.",
     "cta": "Explore my projects"
   },
   "experience_section": {
-    "title": "Work Experience"
+    "title": "Experience",
+    "work_title": "Work Experience",
+    "consulting_title": "Consulting Projects"
   },
   "technologies": {
     "astro": { "name": "Astro", "icon": "logos:astro-icon" },
@@ -81,7 +83,7 @@
     "back_to_home": "Back to Home",
     "paragraph_1": "Hello, I'm Eliezer A Meza. My fascination with web development began back in [year or moment], when I built my first site with HTML & CSS. What started as a curiosity quickly turned into a passion for building intuitive, high-performance digital experiences.",
     "paragraph_2": "Throughout my career, I've had the privilege of working on a variety of projects, from interactive applications to complex e-commerce platforms. My approach is always the same: to write clean, scalable, and user-centric code.",
-    "paragraph_3": "When I'm not in front of a keyboard, I enjoy [your hobby 1], [your hobby 2], or exploring new technologies in the ever-changing web development ecosystem."
+    "cta_cv": "Download CV"
   },
   "footer": {
     "copyright": "© {year} {name}. All Rights Reserved."

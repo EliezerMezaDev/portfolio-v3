@@ -1,14 +1,15 @@
 ---
-import "../styles/global.css";
-
-import { ClientRouter } from "astro:transitions";
-import { Icon } from "astro-icon/components";
-
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
+import { Icon } from "astro-icon/components";
+import "../styles/global.css";
 
 export interface Props {
   t: {
+    site?: {
+      title: string;
+    };
     personal_info: {
       email: string;
       social_links: {
@@ -18,110 +19,127 @@ export interface Props {
     };
   };
   lang: "es" | "en";
-  showFooter: boolean;
 }
 
-const { t, lang, showFooter } = Astro.props;
-console.log(showFooter);
+const { t, lang } = Astro.props;
 const info = t.personal_info;
 ---
 
-<!doctype html>
 <html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{t.site.title}</title>
-    <ClientRouter />
+    <title>{t.site?.title}</title>
+    <ViewTransitions />
   </head>
-  <body class="bg-brand-darker text-brand-light">
+  <body class="bg-brand-darker text-brand-light font-sans antialiased">
     <Header t={t} lang={lang} />
 
-    {
-      showFooter == true && (
-        <div class="hidden lg:flex fixed bottom-0 left-6 flex-col items-center gap-6 z-20">
-          <a
-            href={info.social_links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            class="text-brand-light/60 hover:text-accent transition-all"
-          >
-            <Icon name="lucide:github" class="size-6" />
-          </a>
-          <a
-            href={info.social_links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            class="text-brand-light/60 hover:text-accent transition-all"
-          >
-            <Icon name="lucide:linkedin" class="size-6" />
-          </a>
+    <div
+      class="hidden lg:flex fixed bottom-0 left-8 xl:left-12 flex-col items-center gap-6 z-20"
+    >
+      <a
+        href={info.social_links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        class="text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
+      >
+        <Icon name="lucide:github" class="size-6" />
+      </a>
+      <a
+        href={info.social_links.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+        class="text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
+      >
+        <Icon name="lucide:linkedin" class="size-6" />
+      </a>
+      <div class="w-px h-24 bg-brand-light/40"></div>
+    </div>
 
-          <div class="w-px h-24 bg-brand-light/40" />
-        </div>
-      )
-    }
-
-    {
-      showFooter && (
-        <div class="hidden lg:flex fixed bottom-0 right-6 flex-col items-center gap-6 z-20">
-          <a
-            href={`mailto:${info.email}`}
-            class="font-mono text-sm tracking-widest text-brand-light/60 hover:text-accent transition-all"
-            style="writing-mode: vertical-rl;"
-          >
-            {info.email}
-          </a>
-
-          <div class="w-px h-24 bg-brand-light/40" />
-        </div>
-      )
-    }
+    <div
+      class="hidden lg:flex fixed bottom-0 right-8 xl:right-12 flex-col items-center gap-6 z-20"
+    >
+      <a
+        href={`mailto:${info.email}`}
+        class="font-mono text-sm tracking-widest text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
+        style="writing-mode: vertical-rl;"
+      >
+        {info.email}
+      </a>
+      <div class="w-px h-24 bg-brand-light/40"></div>
+    </div>
 
     <main>
       <slot />
     </main>
-    {showFooter && <Footer t={t} lang={lang} />}
+    <Footer t={t} />
   </body>
 </html>
 
-  <script>
-      import { gsap } from "gsap";
-      import { ScrollTrigger } from "gsap/ScrollTrigger";
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+  import { Observer } from "gsap/Observer";
 
-      gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
-      document.addEventListener("astro:page-load", () => {
-        const header = document.querySelector<HTMLElement>("#main-header");
-        if (!header) return;
+  document.addEventListener("astro:page-load", () => {
+    const header = document.querySelector<HTMLElement>("#main-header");
+    if (!header) return;
 
-        // Usamos ScrollTrigger.create para observar el scroll
-        ScrollTrigger.create({
-          start: "top top-=-100", // Un umbral de 100px para empezar a reaccionar
-          onUpdate: (self) => {
-            // Si hacemos scroll hacia abajo (direction 1), oculta el header
-            if (self.direction === 1) {
-              gsap.to(header, { y: "-100%", duration: 0.3, ease: "power2.inOut" });
-            } 
-            // Si hacemos scroll hacia arriba (direction -1), muestra el header
-            else {
-              gsap.to(header, { y: "0%", duration: 0.3, ease: "power2.inOut" });
-            }
-          }
-        });
+    ScrollTrigger.create({
+      start: "top top-=-100",
+      onUpdate: (self) => {
+        if (self.direction === 1) {
+          gsap.to(header, { y: "-100%", duration: 0.3, ease: "power2.inOut" });
+        } else {
+          gsap.to(header, { y: "0%", duration: 0.3, ease: "power2.inOut" });
+        }
+      },
+    });
 
-        // El trigger para cambiar el fondo se mantiene igual, es correcto y eficiente.
-        ScrollTrigger.create({
-          trigger: 'body',
-          start: "100px top",
-          toggleClass: {
-            targets: header,
-            className: "is-scrolled"
-          }
-        });
+    Observer.create({
+      target: window,
+      type: "pointer",
+      onMove: (self) => {
+        if (self.y < 80) {
+          gsap.to(header, { y: "0%", duration: 0.3, ease: "power2.out" });
+        }
+      },
+    });
+
+    ScrollTrigger.create({
+      trigger: "body",
+      start: "100px top",
+      toggleClass: {
+        targets: header,
+        className: "is-scrolled",
+      },
+    });
+
+    const lang = document.documentElement.lang;
+    document.querySelectorAll('a[href*="#"]').forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (href && (href.startsWith("#") || href.startsWith(`/${lang}/#`))) {
+          e.preventDefault();
+
+          const targetId = `#${href.split("#")[1]}`;
+
+          gsap.to(window, {
+            duration: 1.2,
+            ease: "power3.inOut",
+            scrollTo: {
+              y: targetId,
+              offsetY: 100,
+            },
+          });
+        }
       });
-    </script>
+    });
+  });
+</script>

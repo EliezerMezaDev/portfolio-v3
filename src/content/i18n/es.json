@@ -28,11 +28,13 @@
   },
   "hero": {
     "greeting": "Hola, soy",
-    "description": "+4 años de experiencia. Desarrollador de software de Nueva Esparta, Venezuela.",
+    "description": "{experience_years} años de experiencia. {role} de {location}.",
     "cta": "Explora mis proyectos"
   },
   "experience_section": {
-    "title": "Experiencia Profesional"
+    "title": "Experiencia",
+    "work_title": "Experiencia Laboral",
+    "consulting_title": "Proyectos de Consultoría"
   },
   "technologies": {
     "astro": { "name": "Astro", "icon": "logos:astro-icon" },
@@ -65,25 +67,25 @@
     "database_keys": ["postgresql", "supabase"]
   },
   "projects_section": {
-    "title": "Proyectos Destacados",
+    "title": "Proyectos destacados",
     "view_all_button": "Ver todos los proyectos"
   },
   "all_projects_page": {
-    "title": "Todos mis Proyectos",
+    "title": "Todos mis proyectos",
     "filter_all": "Todos"
   },
   "project_detail_page": {
-    "back_to_projects": "Volver a Proyectos",
-    "tech_stack": "Tecnologías Utilizadas"
+    "back_to_projects": "Volver a proyectos",
+    "tech_stack": "Tecnologías utilizadas"
   },
   "about_page": {
-    "title": "Sobre Mí",
-    "back_to_home": "Volver a Inicio",
-    "paragraph_1": "Hola, soy Eliezer A Meza. Mi fascinación por el desarrollo web comenzó en [año o momento], cuando creé mi primer sitio con HTML y CSS. Lo que empezó como curiosidad, rápidamente se convirtió en una pasión por construir experiencias digitales intuitivas y de alto rendimiento.",
-    "paragraph_2": "A lo largo de mi carrera, he tenido el privilegio de trabajar en una variedad de proyectos, desde aplicaciones interactivas hasta complejas plataformas de e-commerce. Mi enfoque es siempre el mismo: escribir código limpio, escalable y centrado en el usuario.",
-    "paragraph_3": "Cuando no estoy frente a un teclado, disfruto de [tu hobby 1], [tu hobby 2] o explorando nuevas tecnologías en el siempre cambiante ecosistema del desarrollo web."
+    "title": "Sobre mí",
+    "back_to_home": "Volver a inicio",
+    "paragraph_1": "Desarrollador Full-Stack con la misión de construir software funcional y elegante. Con 4 años de experiencia, he entregado soluciones que van desde wallets de cripto hasta sistemas ERP optimizados. Mi código es limpio, escalable y siempre pensado para el usuario.",
+    "paragraph_2": "Mi pasión por la tecnología es mi motor, desde mis primeros experimentos con HTML hasta mi título en Ingeniería de Sistemas. Fuera del teclado, practico Karate, enfrento desafíos en Project Zomboid y me sumerjo en las últimas innovaciones del sector.",
+    "cta_cv": "Descargar CV"
   },
   "footer": {
-    "copyright": "© {year} {name}. Todos los Derechos Reservados."
+    "copyright": "© {year} {name}. Todos los derechos reservados."
   }
 }
