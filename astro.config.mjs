@@ -1,5 +1,20 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
+import tailwind from "@astrojs/tailwind";
+import icon from "astro-icon";
 
-// https://astro.build/config
-export default defineConfig({});
+import netlify from "@astrojs/netlify";
+
+export default defineConfig({
+  output: "server",
+  integrations: [tailwind(), icon()],
+  resolve: {
+    alias: {
+      "@": "/src",
+      "@/components": "/src/components",
+      "@/layouts": "/src/layouts",
+      "@/content": "/src/content",
+      "@/styles": "/src/styles",
+    },
+  },
+  adapter: netlify(),
+});

@@ -1,0 +1,91 @@
+{
+  "site": {
+    "title": "EMZ | Portfolio"
+  },
+  "nav": {
+    "home": "Home",
+    "experience": "Experience",
+    "projects": "Projects",
+    "about": "About"
+  },
+  "language_selector": {
+    "current_lang_label": "Language",
+    "other_lang_code": "es",
+    "other_lang_name": "Español"
+  },
+  "personal_info": {
+    "name": "Eliezer A Meza",
+    "email": "eliezermeza.dev@gamil.com",
+    "location": "Nueva Esparta, Venezuela",
+    "role": "Desarrollador de software",
+    "role_en": "Software Developer",
+    "profile_image": "/images/me.webp",
+    "experience_years": 4,
+    "social_links": {
+      "linkedin": "https://www.linkedin.com/in/eliezer-a-meza-7a1b882b9/",
+      "github": "https://github.com/EliezerMezaDev"
+    }
+  },
+  "hero": {
+    "greeting": "Hi, i'm",
+    "description": "{experience_years} years of experience. {role} from {location}.",
+    "cta": "Explore my projects"
+  },
+  "experience_section": {
+    "title": "Experience",
+    "work_title": "Work Experience",
+    "consulting_title": "Consulting Projects"
+  },
+  "technologies": {
+    "astro": { "name": "Astro", "icon": "logos:astro-icon" },
+    "react": { "name": "React", "icon": "logos:react" },
+    "nuxt": { "name": "Nuxt", "icon": "logos:nuxt-icon" },
+    "scss": { "name": "SCSS", "icon": "logos:sass" },
+    "tailwind": { "name": "Tailwind", "icon": "logos:tailwindcss-icon" },
+    "typescript": { "name": "TypeScript", "icon": "logos:typescript-icon" },
+    "flutter": { "name": "Flutter", "icon": "logos:flutter" },
+
+    "nodejs": { "name": "Node.js", "icon": "logos:nodejs-icon" },
+    "bun": { "name": "Bun", "icon": "logos:bun" },
+    "strapi": { "name": "Strapi", "icon": "logos:strapi-icon" },
+
+    "postgresql": { "name": "PostgreSQL", "icon": "logos:postgresql" },
+    "supabase": { "name": "Supabase", "icon": "logos:supabase-icon" }
+  },
+  "skills_section": {
+    "title": "Skills",
+    "frontend_keys": [
+      "astro",
+      "react",
+      "nuxt",
+      "scss",
+      "tailwind",
+      "typescript",
+      "flutter"
+    ],
+    "backend_keys": ["nodejs", "bun", "strapi"],
+    "database_keys": ["postgresql", "supabase"]
+  },
+  "projects_section": {
+    "title": "Featured Projects",
+    "view_all_button": "View all projects"
+  },
+  "all_projects_page": {
+    "title": "All My Projects",
+    "filter_all": "All"
+  },
+  "project_detail_page": {
+    "back_to_projects": "Back to Projects",
+    "tech_stack": "Tech Stack"
+  },
+  "about_page": {
+    "title": "About Me",
+    "back_to_home": "Back to Home",
+    "paragraph_1": "Hello, I'm Eliezer A Meza. My fascination with web development began back in [year or moment], when I built my first site with HTML & CSS. What started as a curiosity quickly turned into a passion for building intuitive, high-performance digital experiences.",
+    "paragraph_2": "Throughout my career, I've had the privilege of working on a variety of projects, from interactive applications to complex e-commerce platforms. My approach is always the same: to write clean, scalable, and user-centric code.",
+    "cta_cv": "Download CV"
+  },
+  "footer": {
+    "copyright": "© {year} {name}. All Rights Reserved."
+  }
+}

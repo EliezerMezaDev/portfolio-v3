@@ -1,0 +1,91 @@
+{
+  "site": {
+    "title": "EMZ | Portafolio"
+  },
+  "nav": {
+    "home": "Inicio",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "about": "Sobre mí"
+  },
+  "language_selector": {
+    "current_lang_label": "Idioma",
+    "other_lang_code": "en",
+    "other_lang_name": "English"
+  },
+  "personal_info": {
+    "name": "Eliezer A meza",
+    "email": "eliezermeza.dev@gamil.com",
+    "location": "Nueva Esparta, Venezuela",
+    "role": "Desarrollador de software",
+    "role_en": "Software Developer",
+    "profile_image": "/images/me.webp",
+    "experience_years": 4,
+    "social_links": {
+      "linkedin": "https://linkedin.com/in/tu-usuario",
+      "github": "https://github.com/tu-usuario"
+    }
+  },
+  "hero": {
+    "greeting": "Hola, soy",
+    "description": "{experience_years} años de experiencia. {role} de {location}.",
+    "cta": "Explora mis proyectos"
+  },
+  "experience_section": {
+    "title": "Experiencia",
+    "work_title": "Experiencia Laboral",
+    "consulting_title": "Proyectos de Consultoría"
+  },
+  "technologies": {
+    "astro": { "name": "Astro", "icon": "logos:astro-icon" },
+    "react": { "name": "React", "icon": "logos:react" },
+    "nuxt": { "name": "Nuxt", "icon": "logos:nuxt-icon" },
+    "scss": { "name": "SCSS", "icon": "logos:sass" },
+    "tailwind": { "name": "Tailwind", "icon": "logos:tailwindcss-icon" },
+    "typescript": { "name": "TypeScript", "icon": "logos:typescript-icon" },
+    "flutter": { "name": "Flutter", "icon": "logos:flutter" },
+
+    "nodejs": { "name": "Node.js", "icon": "logos:nodejs-icon" },
+    "bun": { "name": "Bun", "icon": "logos:bun" },
+    "strapi": { "name": "Strapi", "icon": "logos:strapi-icon" },
+
+    "postgresql": { "name": "PostgreSQL", "icon": "logos:postgresql" },
+    "supabase": { "name": "Supabase", "icon": "logos:supabase-icon" }
+  },
+  "skills_section": {
+    "title": "Habilidades",
+    "frontend_keys": [
+      "astro",
+      "react",
+      "nuxt",
+      "scss",
+      "tailwind",
+      "typescript",
+      "flutter"
+    ],
+    "backend_keys": ["nodejs", "bun", "strapi"],
+    "database_keys": ["postgresql", "supabase"]
+  },
+  "projects_section": {
+    "title": "Proyectos destacados",
+    "view_all_button": "Ver todos los proyectos"
+  },
+  "all_projects_page": {
+    "title": "Todos mis proyectos",
+    "filter_all": "Todos"
+  },
+  "project_detail_page": {
+    "back_to_projects": "Volver a proyectos",
+    "tech_stack": "Tecnologías utilizadas"
+  },
+  "about_page": {
+    "title": "Sobre mí",
+    "back_to_home": "Volver a inicio",
+    "paragraph_1": "Desarrollador Full-Stack con la misión de construir software funcional y elegante. Con 4 años de experiencia, he entregado soluciones que van desde wallets de cripto hasta sistemas ERP optimizados. Mi código es limpio, escalable y siempre pensado para el usuario.",
+    "paragraph_2": "Mi pasión por la tecnología es mi motor, desde mis primeros experimentos con HTML hasta mi título en Ingeniería de Sistemas. Fuera del teclado, practico Karate, enfrento desafíos en Project Zomboid y me sumerjo en las últimas innovaciones del sector.",
+    "cta_cv": "Descargar CV"
+  },
+  "footer": {
+    "copyright": "© {year} {name}. Todos los derechos reservados."
+  }
+}
