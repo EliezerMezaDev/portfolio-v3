@@ -7,13 +7,15 @@ import netlify from "@astrojs/netlify";
 export default defineConfig({
   output: "server",
   integrations: [tailwind(), icon()],
-  resolve: {
-    alias: {
-      "@": "/src",
-      "@/components": "/src/components",
-      "@/layouts": "/src/layouts",
-      "@/content": "/src/content",
-      "@/styles": "/src/styles",
+  vite: {
+    resolve: {
+      alias: {
+        "@": "/src",
+        "@/components": "/src/components",
+        "@/layouts": "/src/layouts",
+        "@/content": "/src/content",
+        "@/styles": "/src/styles",
+      },
     },
   },
   adapter: netlify(),
