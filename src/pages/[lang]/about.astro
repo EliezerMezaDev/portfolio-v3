@@ -12,9 +12,11 @@ if (lang !== "es" && lang !== "en") {
 
 const t = lang === "es" ? esTranslations : enTranslations;
 const { title, paragraph_1, paragraph_2, cta_cv } = t.about_page;
+
+const cvPath = lang === "es" ? "/docs/emz-cv-es.pdf" : "/docs/emz-cv-en.pdf";
 ---
 
-<Layout t={t} lang={lang} showFooter={false}>
+<Layout t={t} lang={lang} showFooter={true}>
   <section id="about-page" class="min-h-screen py-20 md:py-32">
     <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 items-start">
@@ -50,15 +52,17 @@ const { title, paragraph_1, paragraph_2, cta_cv } = t.about_page;
           </div>
           <img
             src="/images/me.webp"
-            alt="Foto de [Tu Nombre]"
+            alt="portrait"
             class="w-full h-auto rounded-lg"
           />
 
           <div class="mt-4 mb-8">
             <a
-              href="#projects"
-              class="px-5 py-2 border-2 border-accent text-accent font-mono text-lg rounded hover:bg-accent/30 transition-all duration-300 flex items-center"
+              href={cvPath}
+              download={`emz-cv.pdf`}
+              class="inline-flex items-center justify-center gap-2 w-full px-5 py-3 border-2 border-accent text-accent font-mono text-lg rounded hover:bg-accent/20 transition-all duration-300"
             >
+              <Icon name="lucide:download" class="size-5" />
               {cta_cv}
             </a>
           </div>

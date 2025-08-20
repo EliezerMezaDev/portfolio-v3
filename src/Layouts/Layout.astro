@@ -19,9 +19,10 @@ export interface Props {
     };
   };
   lang: "es" | "en";
+  showFooter: boolean;
 }
 
-const { t, lang } = Astro.props;
+const { t, lang, showFooter = false } = Astro.props;
 const info = t.personal_info;
 ---
 
@@ -35,47 +36,51 @@ const info = t.personal_info;
   <body class="bg-brand-darker text-brand-light font-sans antialiased">
     <Header t={t} lang={lang} />
 
-    <div
-      class="hidden lg:flex fixed bottom-0 left-8 xl:left-12 flex-col items-center gap-6 z-20"
-    >
-      <a
-        href={info.social_links.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub"
-        class="text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
-      >
-        <Icon name="lucide:github" class="size-6" />
-      </a>
-      <a
-        href={info.social_links.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn"
-        class="text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
-      >
-        <Icon name="lucide:linkedin" class="size-6" />
-      </a>
-      <div class="w-px h-24 bg-brand-light/40"></div>
-    </div>
+    {
+      showFooter === true && (
+        <div class="hidden lg:flex fixed bottom-0 left-8 xl:left-12 flex-col items-center gap-6 z-20">
+          <a
+            href={info.social_links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
+          >
+            <Icon name="lucide:github" class="size-6" />
+          </a>
+          <a
+            href={info.social_links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            class="text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
+          >
+            <Icon name="lucide:linkedin" class="size-6" />
+          </a>
+          <div class="w-px h-24 bg-brand-light/40" />
+        </div>
+      )
+    }
 
-    <div
-      class="hidden lg:flex fixed bottom-0 right-8 xl:right-12 flex-col items-center gap-6 z-20"
-    >
-      <a
-        href={`mailto:${info.email}`}
-        class="font-mono text-sm tracking-widest text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
-        style="writing-mode: vertical-rl;"
-      >
-        {info.email}
-      </a>
-      <div class="w-px h-24 bg-brand-light/40"></div>
-    </div>
+    {
+      showFooter === true && (
+        <div class="hidden lg:flex fixed bottom-0 right-8 xl:right-12 flex-col items-center gap-6 z-20">
+          <a
+            href={`mailto:${info.email}`}
+            class="font-mono text-sm tracking-widest text-brand-light/60 hover:text-accent hover:-translate-y-1 transition-all"
+            style="writing-mode: vertical-rl;"
+          >
+            {info.email}
+          </a>
+          <div class="w-px h-24 bg-brand-light/40" />
+        </div>
+      )
+    }
 
     <main>
       <slot />
     </main>
-    <Footer t={t} />
+    {showFooter === true && <Footer t={t} />}
   </body>
 </html>
 
