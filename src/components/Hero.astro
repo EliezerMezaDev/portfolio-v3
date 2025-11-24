@@ -1,0 +1,132 @@
+---
+interface Props {
+  t: {
+    hero: {
+      greeting: string;
+      description: string;
+      cta: string;
+    };
+    personal_info: {
+      name: string;
+      email: string;
+      location: string;
+      role: string;
+      role_en: string;
+      profile_image: string;
+      experience_years: number;
+      social_links: {
+        linkedin: string;
+      };
+    };
+  };
+}
+
+const { t } = Astro.props;
+const { hero, personal_info } = t;
+
+const descriptionText = hero.description
+  .replace("{experience_years}", personal_info.experience_years.toString())
+  .replace("{role}", personal_info.role)
+  .replace("{location}", personal_info.location);
+---
+
+<section
+  id="hero"
+  class="relative container mx-auto min-h-screen flex items-center justify-center py-20 px-6 sm:px-8 lg:px-10"
+>
+  <div
+    class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-x-12 gap-y-8 items-center"
+  >
+    <div class="text-center lg:text-left order-2 lg:order-1">
+      <p data-animate-hero-item class="hero-item text-lg font-mono text-accent">
+        {hero.greeting}
+      </p>
+      <h1
+        data-animate-hero-item
+        class="hero-item text-4xl sm:text-6xl md:text-7xl font-bold text-brand-light tracking-tighter"
+      >
+        {personal_info.name}
+      </h1>
+      <p
+        data-animate-hero-item
+        class="hero-item text-lg text-brand-light/70 max-w-xl mt-6 mx-auto lg:mx-0"
+      >
+        {descriptionText}
+      </p>
+      <div data-animate-hero-item class="hero-item mt-12">
+        <a
+          href="#projects"
+          class="inline-block px-7 py-4 border border-accent text-accent font-mono text-lg rounded hover:bg-accent/30 transition-all duration-300"
+        >
+          {hero.cta}
+        </a>
+      </div>
+    </div>
+
+    <div
+      data-animate-hero-item
+      class="hero-item flex justify-center items-center order-1 lg:order-2"
+    >
+      <picture class="w-[250px] lg:w-[300px] xl:w-[350px] aspect-square">
+        <img
+          id="portrait"
+          src="/images/me.webp"
+          alt="profile"
+          class="w-full h-full object-cover"
+        />
+      </picture>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-item {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  #portrait {
+    animation: 10s blobShape infinite ease-in-out;
+  }
+
+  @keyframes blobShape {
+    0%,
+    100% {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    34% {
+      border-radius: 80% 50% 60% 40% / 30% 70% 60% 60%;
+    }
+    67% {
+      border-radius: 50% 70% 50% 60% / 40% 50% 50% 50%;
+    }
+  }
+</style>
+
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  function animateHero() {
+    const items = document.querySelectorAll("[data-animate-hero-item]");
+
+    items.forEach((item) => {
+      inView(
+        item,
+        () => {
+          const animation = animate(
+            items,
+            { opacity: 1, transform: "translateY(0)" },
+            { duration: 1, delay: stagger(0.2) }
+          );
+
+          animation.finished.then(() => {
+            item.classList.remove("opacity-0", "translate-x-[-50px]");
+          });
+        },
+        { amount: 0.2 }
+      );
+    });
+  }
+
+  document.addEventListener("astro:page-load", animateHero);
+</script>

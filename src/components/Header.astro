@@ -1,0 +1,221 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  t: Record<string, any>;
+  lang: "es" | "en";
+}
+
+
+const { t, lang } = Astro.props;
+
+const navItems = [
+  {
+    label: t.nav.home,
+    url: `/${lang}/`,
+  },
+  {
+    label: t.nav.projects,
+    url: `/${lang}/projects`,
+  },
+  {
+    label: t.nav.about,
+    url: `/${lang}/about`,
+  },
+];
+
+const homeUrl = `/${lang}/`;
+
+function getOppositeLangUrl(currentUrl: URL, currentLang: "es" | "en"): string {
+  const otherLang = currentLang === "es" ? "en" : "es";
+  const pathSegments = currentUrl.pathname
+    .split("/")
+    .filter((segment) => segment);
+
+  if (
+    pathSegments.length > 0 &&
+    (pathSegments[0] === "es" || pathSegments[0] === "en")
+  ) {
+    pathSegments.shift();
+  }
+  const newPath = `/${otherLang}/${pathSegments.join("/")}`;
+  return newPath;
+}
+
+const currentUrl = Astro.url;
+const otherLangUrl = getOppositeLangUrl(currentUrl, lang);
+---
+
+<header
+  id="main-header"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+>
+  <div
+    class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20"
+  >
+    <a
+      href={homeUrl}
+      class="text-xl font-bold text-accent-darker hover:text-accent transition-all"
+    >
+      EaMZ
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-6">
+      <ul class="flex space-x-6">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.url}
+                class="text-brand-light/60 hover:text-accent transition-colors"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={otherLangUrl} title="Change language">
+        <Icon
+          name="material-symbols:g-translate"
+          class="size-6 text-brand-light/60 hover:text-accent transition-colors"
+        />
+      </a>
+    </nav>
+
+    <button
+      id="mobile-menu-button"
+      class="md:hidden p-2 rounded-md hover:bg-brand-light/10 transition-colors z-20"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg
+        id="menu-icon-open"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg
+        id="menu-icon-close"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 hidden"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="md:hidden absolute top-0 left-0 w-full bg-brand-darker/90 backdrop-blur-sm opacity-0 pointer-events-none -translate-y-4 transition-all duration-300"
+  >
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <ul class="flex flex-col items-center space-y-6">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.url}
+                class="text-xl hover:text-accent transition-colors mobile-nav-link"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="pt-6">
+          <a href={otherLangUrl} title="Change language">
+            <Icon
+              name="material-symbols:g-translate"
+              class="size-8 hover:text-accent transition-colors"
+            />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function setupHeader() {
+    const header = document.getElementById("main-header");
+    const menuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const navLinks = document.querySelectorAll(".mobile-nav-link");
+    const iconOpen = document.getElementById("menu-icon-open");
+    const iconClose = document.getElementById("menu-icon-close");
+
+    if (!header || !menuButton || !mobileMenu || !iconOpen || !iconClose) {
+      return;
+    }
+
+    const toggleMenu = () => {
+      const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isExpanded));
+
+      if (!isExpanded) {
+        // Open menu
+        mobileMenu.classList.remove(
+          "opacity-0",
+          "pointer-events-none",
+          "-translate-y-4"
+        );
+        iconOpen.classList.add("hidden");
+        iconClose.classList.remove("hidden");
+      } else {
+        // Close menu
+        mobileMenu.classList.add(
+          "opacity-0",
+          "pointer-events-none",
+          "-translate-y-4"
+        );
+        iconOpen.classList.remove("hidden");
+        iconClose.classList.add("hidden");
+      }
+    };
+
+    menuButton.addEventListener("click", toggleMenu);
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (menuButton.getAttribute("aria-expanded") === "true") {
+          toggleMenu();
+        }
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        header.classList.add(
+          "bg-brand-darker/90",
+          "backdrop-blur-sm",
+          "shadow-lg"
+        );
+      } else {
+        header.classList.remove(
+          "bg-brand-darker/90",
+          "backdrop-blur-sm",
+          "shadow-lg"
+        );
+      }
+    });
+  }
+
+  document.addEventListener("astro:page-load", setupHeader);
+</script>

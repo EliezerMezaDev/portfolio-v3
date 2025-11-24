@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title: string;
+  keys: string[];
+  techDictionary: Record<string, { name: string; icon: string }>;
+}
+
+const { title, keys, techDictionary } = Astro.props;
+---
+
+<div>
+  <h3 class="text-xl font-semibold mb-6 text-center sm:text-left">{title}</h3>
+  <div
+    class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-6"
+  >
+    {
+      keys.map((key) => {
+        const skill = techDictionary[key];
+        if (!skill) return null;
+
+        return (
+          <div
+            data-animate-skill
+            class="flex flex-col items-center justify-center gap-2 px-4 py-6 bg-brand-dark/50 border-2 border-transparent rounded-lg transition-transform opacity-0 hover:scale-95 hover:bg-brand-dark cursor-pointer"
+          >
+            <Icon
+              name={skill.icon}
+              class:list={[
+                "size-10",
+                { "contrast-50": skill.icon == "logos:astro-icon" },
+              ]}
+            />
+            <span class="mt-2 text-md text-center text-brand-light/80">
+              {skill.name}
+            </span>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>

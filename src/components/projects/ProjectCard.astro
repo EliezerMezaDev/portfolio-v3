@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TechStackBadges from "../TechStackBadges.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  lang: "es" | "en";
+  techDictionary: Record<string, { name: string; icon: string }>;
+}
+
+const { project, lang, techDictionary } = Astro.props;
+const { title, summary, tags, portraitImage } = project.data;
+const detailUrl = `/${lang}/projects/${project.slug.split("/")[1]}`;
+---
+
+<a
+  href={detailUrl}
+  data-animate-project
+  class="block bg-brand-dark/50 rounded-lg overflow-hidden group opacity-0"
+>
+  <div class="overflow-hidden">
+    <img
+      src={portraitImage.src}
+      alt={portraitImage.alt}
+      class="w-full h-60 object-cover group-hover:scale-125 transition-transform duration-300"
+    />
+  </div>
+  <div class="p-4">
+    <h3 class="text-xl font-bold text-brand-light mb-2">{title}</h3>
+    <p class="text-brand-light/70 mb-4">{summary}</p>
+    <TechStackBadges tags={tags} {techDictionary} />
+  </div>
+</a>

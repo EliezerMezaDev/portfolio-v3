@@ -95,7 +95,7 @@ const uniqueTags = [...new Set(allTags)];
         const animation = animate(
           projectCards,
           { opacity: 1 },
-          { duration: 0.5, ease: "ease-out", delay: stagger(0.07) }
+          { duration: 0.5, ease: "easeOut", delay: stagger(0.07) }
         );
 
         animation.finished.then(() => {
@@ -104,7 +104,7 @@ const uniqueTags = [...new Set(allTags)];
           );
         });
       },
-      {   amount: 0.1 }
+      { amount: 0.1 }
     );
   }
 
@@ -133,13 +133,13 @@ const uniqueTags = [...new Set(allTags)];
             animate(
               wrapper,
               { opacity: 1, scale: 1 },
-              { duration: 0.4, ease: "ease-out" }
+              { duration: 0.4, ease: "easeOut" }
             );
           } else {
             const animation = animate(
               wrapper,
               { opacity: 0, scale: 0.9 },
-              { duration: 0.4, ease: "ease-in" }
+              { duration: 0.4, ease: "easeIn" }
             );
 
             animation.finished.then(() => {

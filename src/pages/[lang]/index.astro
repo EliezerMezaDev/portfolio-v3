@@ -1,17 +1,16 @@
 ---
-
 import esTranslations from "@/content/i18n/es.json";
 import enTranslations from "@/content/i18n/en.json";
 
-import Hero from "@/components/Hero.astro";
-
 import { getCollection } from "astro:content";
 
+import Layout from "@/layouts/Layout.astro";
+
 //? sections
+import Hero from "@/components/Hero.astro";
 import ProjectsPreview from "@/components/projects/ProjectsPreview.astro";
 import Skills from "@/components/skills/Skills.astro";
 import Experience from "@/components/experience/Experience.astro";
-import Layout from "@/layouts/Layout.astro";
 
 const { lang } = Astro.params;
 
@@ -30,7 +29,7 @@ const t = lang === "es" ? esTranslations : enTranslations;
   <Hero t={t} />
 
   <ProjectsPreview projects={featuredProjects} t={t} lang={lang} />
-  
+
   <Experience lang={lang} t={t} />
 
   <Skills t={t} />

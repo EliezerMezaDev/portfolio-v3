@@ -1,0 +1,74 @@
+---
+import { Icon } from "astro-icon/components";
+import Section from "@/layouts/Section.astro";
+import SkillCategory from "../skills/SkillCategory.astro";
+
+interface Props {
+  t: {
+    technologies: Record<string, { name: string; icon: string }>;
+    skills_section: {
+      title: string;
+      frontend: { title: string; keys: string[] };
+      backend: { title: string; keys: string[] };
+      database: { title: string; keys: string[] };
+    };
+  };
+}
+
+const { t } = Astro.props;
+const { title, frontend, backend, database } = t.skills_section;
+const techDictionary = t.technologies;
+---
+
+<Section {title} id="skills">
+  <Icon
+    name="lucide:layers"
+    slot="icon"
+    class="size-8 md:size-10 -translate-y-1 text-accent"
+  />
+
+  <div class="container max-w-5xl mx-auto flex flex-col gap-12">
+    <SkillCategory
+      title={frontend.title}
+      keys={frontend.keys}
+      {techDictionary}
+    />
+    <SkillCategory title={backend.title} keys={backend.keys} {techDictionary} />
+    <SkillCategory
+      title={database.title}
+      keys={database.keys}
+      {techDictionary}
+    />
+  </div>
+</Section>
+
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  function animateSkills() {
+    const skillsSection = document.querySelector("#skills");
+    if (!skillsSection) return;
+
+    const skillItems = skillsSection.querySelectorAll("[data-animate-skill]");
+
+   inView(
+      skillsSection,
+      () => {
+        const animation = animate(
+          skillItems,
+          {
+            opacity: 1,
+          },
+          {
+            duration: 0.5,
+            ease: "ease-out",
+            delay: stagger(0.07),
+          }
+        );
+      },
+      {   amount: 0.2 }
+    );
+  }
+
+  document.addEventListener("astro:page-load", animateSkills);
+</script>
