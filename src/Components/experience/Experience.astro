@@ -1,0 +1,146 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import Section from "@/layouts/Section.astro";
+import ExperienceItem from "./ExperienceItem.astro";
+
+interface Props {
+  lang: "es" | "en";
+  t: Record<string, any>;
+}
+
+const { lang, t } = Astro.props;
+const techDictionary = t.technologies;
+
+const allExperience = await getCollection("experience", ({ id }) => {
+  return id.startsWith(`${lang}/`);
+}).then((entries) => entries.sort((a, b) => a.slug.localeCompare(b.slug)));
+
+const workExperience = allExperience.filter(
+  (entry) => entry.data.type === "work"
+);
+const consultingExperience = allExperience.filter(
+  (entry) => entry.data.type === "consulting"
+);
+---
+
+<Section title={t.experience_section.title} id="experience">
+  <Icon
+    name="lucide:briefcase"
+    slot="icon"
+    class="size-10 md:size-12 translate-y-1 text-accent"
+  />
+
+  <div class="relative w-full max-w-3xl mx-auto mt-12">
+    <div
+      class="absolute left-4 top-2 h-full w-0.5 bg-brand-dark/50 origin-top"
+      data-timeline-line
+    >
+    </div>
+
+    {
+      workExperience.length > 0 && (
+        <div class="mb-16">
+          <h3 class="text-2xl font-semibold text-center mb-8">
+            {t.experience_section.work_title}
+          </h3>
+          <ol class="relative flex flex-col gap-16">
+            {await Promise.all(
+              workExperience.map(async (entry) => {
+                const { Content } = await entry.render();
+                const { role, company, companyUrl, date, techStack } =
+                  entry.data;
+
+                return (
+                  <ExperienceItem
+                    {role}
+                    {company}
+                    {companyUrl}
+                    {date}
+                    {techStack}
+                    {techDictionary}
+                  >
+                    <Content />
+                  </ExperienceItem>
+                );
+              })
+            )}
+          </ol>
+        </div>
+      )
+    }
+
+    {
+      consultingExperience.length > 0 && (
+        <div>
+          <h3 class="text-2xl font-semibold text-center mb-8">
+            {t.experience_section.consulting_title}
+          </h3>
+          <ol class="relative flex flex-col gap-16">
+            {await Promise.all(
+              consultingExperience.map(async (entry) => {
+                const { Content } = await entry.render();
+                const { role, company, companyUrl, date, techStack } =
+                  entry.data;
+
+                return (
+                  <ExperienceItem
+                    {role}
+                    {company}
+                    {companyUrl}
+                    {date}
+                    {techStack}
+                    {techDictionary}
+                  >
+                    <Content />
+                  </ExperienceItem>
+                );
+              })
+            )}
+          </ol>
+        </div>
+      )
+    }
+  </div>
+</Section>
+
+<script>
+  import { scroll, animate, inView } from "motion";
+
+  function animateExperience() {
+    const experienceSection = document.querySelector("#experience");
+    if (!experienceSection) return;
+
+    const timelineLine = experienceSection.querySelector(
+      "[data-timeline-line]"
+    );
+    if (timelineLine) {
+      scroll(animate(timelineLine, { scaleY: [0, 1] }), {
+        target: experienceSection,
+        offset: ["start 0.5", "end end"],
+      });
+    }
+
+    const items = experienceSection.querySelectorAll("[data-animate-item]");
+
+    items.forEach((item) => {
+      inView(
+        item,
+        () => {
+          const animation = animate(
+            item,
+            { opacity: 1, transform: "translateX(0)" },
+            { duration: 0.8, ease: "easeOut" }
+          );
+
+          animation.finished.then(() => {
+            item.classList.remove("opacity-0", "translate-x-[-50px]");
+          });
+        },
+        { amount: 0.2 }
+      );
+    });
+  }
+
+  document.addEventListener("astro:page-load", animateExperience);
+</script>

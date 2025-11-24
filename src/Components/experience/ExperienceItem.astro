@@ -1,0 +1,56 @@
+---
+import TechStackBadges from "../TechStackBadges.astro";
+
+interface Props {
+  role: string;
+  company: string;
+  date: string;
+  companyUrl?: string;
+  techStack?: string[];
+  techDictionary: Record<string, { name: string; icon: string }>;
+}
+
+const { role, company, date, companyUrl, techStack, techDictionary } =
+  Astro.props;
+---
+
+<li
+  data-animate-item
+  class="flex items-start gap-x-6 opacity-0 translate-x-[-50px]"
+>
+  <div
+    class="flex items-center justify-center size-8 rounded-full bg-accent/20 border-2 border-accent shrink-0 mt-1 ml-0.5"
+  >
+    <div class="size-2.5 rounded-full bg-accent"></div>
+  </div>
+
+  <div class="flex-grow">
+    <time class="text-sm text-brand-light/50">{date}</time>
+    <h3 class="text-xl font-bold text-brand-light mt-1">{role}</h3>
+    {
+      companyUrl ? (
+        <a
+          href={companyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-lg text-brand-light/80 hover:text-accent transition-colors"
+        >
+          @{company}
+        </a>
+      ) : (
+        <h4 class="text-lg text-brand-light/80">@{company}</h4>
+      )
+    }
+    <div class="prose prose-invert mt-4 text-brand-light/80 max-w-none">
+      <slot />
+    </div>
+
+    {
+      techStack && techStack.length > 0 && (
+        <div class="mt-2 pt-4">
+          <TechStackBadges tags={techStack} {techDictionary} />
+        </div>
+      )
+    }
+  </div>
+</li>

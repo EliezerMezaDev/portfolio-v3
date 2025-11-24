@@ -46,7 +46,7 @@ const uniqueTags = [...new Set(allTags)];
           if (!tech) return null;
           return (
             <button
-              class="filter-btn px-5 py-2 border border-transparent text-accent font-mono text-lg rounded hover:bg-accent/30 transition-all duration-300 flex items-center"
+              class="filter-btn px-5 py-2 border border-transparent text-accent font-mono text-lg rounded hover:border-accent/50 transition-all duration-300 flex items-center"
               data-filter={tagKey}
             >
               {tech.name}
@@ -64,10 +64,7 @@ const uniqueTags = [...new Set(allTags)];
         allProjects.map((project) => {
           const tagsString = project.data.tags.join(" ");
           return (
-            <div
-              class="project-wrapper transition-all duration-300 ease-in-out"
-              data-tags={tagsString}
-            >
+            <div class="project-wrapper" data-tags={tagsString}>
               <ProjectCard
                 project={project}
                 lang={lang}
@@ -82,11 +79,38 @@ const uniqueTags = [...new Set(allTags)];
 </Layout>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const filterButtons =
-      document.querySelectorAll<HTMLButtonElement>(".filter-btn");
-    const projectWrappers =
-      document.querySelectorAll<HTMLElement>(".project-wrapper");
+  import { animate, inView, stagger } from "motion";
+
+  function animateInitialLoad() {
+    const projectSection = document.querySelector("#all-projects");
+    if (!projectSection) return;
+
+    const projectCards = projectSection.querySelectorAll(
+      "[data-animate-project]"
+    );
+
+    inView(
+      projectSection,
+      () => {
+        const animation = animate(
+          projectCards,
+          { opacity: 1 },
+          { duration: 0.5, ease: "ease-out", delay: stagger(0.07) }
+        );
+
+        animation.finished.then(() => {
+          projectCards.forEach((card) =>
+            card.classList.remove("opacity-0", "translate-y-12")
+          );
+        });
+      },
+      {   amount: 0.1 }
+    );
+  }
+
+  function setupFiltering() {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projectWrappers = document.querySelectorAll(".project-wrapper");
 
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -94,38 +118,41 @@ const uniqueTags = [...new Set(allTags)];
           btn.classList.remove("is-active", "border-accent");
           btn.classList.add("border-transparent", "hover:border-accent/50");
         });
-
         button.classList.add("is-active", "border-accent");
         button.classList.remove("border-transparent", "hover:border-accent/50");
 
-        const filterValue = button.getAttribute("data-filter");
+        const filterValue = button.dataset.filter;
 
         projectWrappers.forEach((wrapper) => {
-          const projectTags = wrapper.getAttribute("data-tags");
+          const projectTags = wrapper.dataset.tags;
+          const matches =
+            filterValue === "all" || projectTags?.includes(filterValue);
 
-          if (filterValue === "all" || projectTags?.includes(filterValue)) {
-            wrapper.classList.remove(
-              "opacity-0",
-              "scale-90",
-              "h-0",
-              "w-0",
-              "p-0",
-              "m-0",
-              "overflow-hidden"
+          if (matches) {
+            wrapper.style.display = "block";
+            animate(
+              wrapper,
+              { opacity: 1, scale: 1 },
+              { duration: 0.4, ease: "ease-out" }
             );
           } else {
-            wrapper.classList.add(
-              "opacity-0",
-              "scale-90",
-              "h-0",
-              "w-0",
-              "p-0",
-              "m-0",
-              "overflow-hidden"
+            const animation = animate(
+              wrapper,
+              { opacity: 0, scale: 0.9 },
+              { duration: 0.4, ease: "ease-in" }
             );
+
+            animation.finished.then(() => {
+              wrapper.style.display = "none";
+            });
           }
         });
       });
     });
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    animateInitialLoad();
+    setupFiltering();
   });
 </script>

@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "EMZ | Portfolio"
+    "title": "EaMZ | Portfolio"
   },
   "nav": {
     "home": "Home",
@@ -18,7 +18,7 @@
     "email": "eliezermeza.dev@gamil.com",
     "location": "Nueva Esparta, Venezuela",
     "role": "Desarrollador de software",
-    "role_en": "Software Developer",
+    "role_en": "Software developer",
     "profile_image": "/images/me.webp",
     "experience_years": 4,
     "social_links": {
@@ -33,16 +33,18 @@
   },
   "experience_section": {
     "title": "Experience",
-    "work_title": "Work Experience",
-    "consulting_title": "Consulting Projects"
+    "work_title": "Work experience",
+    "consulting_title": "Consulting projects"
   },
   "technologies": {
     "astro": { "name": "Astro", "icon": "logos:astro-icon" },
-    "react": { "name": "React", "icon": "logos:react" },
+    "nextjs": { "name": "Nextjs", "icon": "logos:nextjs-icon" },
     "nuxt": { "name": "Nuxt", "icon": "logos:nuxt-icon" },
+    "react": { "name": "React", "icon": "logos:react" },
+    "typescript": { "name": "TypeScript", "icon": "logos:typescript-icon" },
     "scss": { "name": "SCSS", "icon": "logos:sass" },
     "tailwind": { "name": "Tailwind", "icon": "logos:tailwindcss-icon" },
-    "typescript": { "name": "TypeScript", "icon": "logos:typescript-icon" },
+    "ionic": { "name": "Ionic", "icon": "logos:ionic-icon" },
     "flutter": { "name": "Flutter", "icon": "logos:flutter" },
 
     "nodejs": { "name": "Node.js", "icon": "logos:nodejs-icon" },
@@ -54,38 +56,43 @@
   },
   "skills_section": {
     "title": "Skills",
-    "frontend_keys": [
-      "astro",
-      "react",
-      "nuxt",
-      "scss",
-      "tailwind",
-      "typescript",
-      "flutter"
-    ],
-    "backend_keys": ["nodejs", "bun", "strapi"],
-    "database_keys": ["postgresql", "supabase"]
+    "frontend": {
+      "title": "Frontend",
+      "keys": [
+        "astro",
+        "nextjs",
+        "nuxt",
+        "react",
+        "typescript",
+        "scss",
+        "tailwind",
+        "ionic",
+        "flutter"
+      ]
+    },
+    "backend": { "title": "Backend", "keys": ["nodejs", "bun", "strapi"] },
+    "database": { "title": "Databases", "keys": ["postgresql", "supabase"] }
   },
   "projects_section": {
-    "title": "Featured Projects",
+    "title": "Featured projects",
     "view_all_button": "View all projects"
   },
   "all_projects_page": {
-    "title": "All My Projects",
+    "title": "All my projects",
     "filter_all": "All"
   },
   "project_detail_page": {
-    "back_to_projects": "Back to Projects",
-    "tech_stack": "Tech Stack"
+    "back_to_projects": "Back to projects",
+    "tech_stack": "Tech stack"
   },
   "about_page": {
-    "title": "About Me",
-    "back_to_home": "Back to Home",
+    "title": "About me",
+    "back_to_home": "Back to home",
     "paragraph_1": "Hello, I'm Eliezer A Meza. My fascination with web development began back in [year or moment], when I built my first site with HTML & CSS. What started as a curiosity quickly turned into a passion for building intuitive, high-performance digital experiences.",
     "paragraph_2": "Throughout my career, I've had the privilege of working on a variety of projects, from interactive applications to complex e-commerce platforms. My approach is always the same: to write clean, scalable, and user-centric code.",
     "cta_cv": "Download CV"
   },
   "footer": {
-    "copyright": "© {year} {name}. All Rights Reserved."
+    "copyright": "© {year} {name}. All rights reserved."
   }
 }

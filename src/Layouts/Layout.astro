@@ -1,23 +1,12 @@
 ---
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import { Icon } from "astro-icon/components";
 import "../styles/global.css";
 
 export interface Props {
-  t: {
-    site?: {
-      title: string;
-    };
-    personal_info: {
-      email: string;
-      social_links: {
-        github: string;
-        linkedin: string;
-      };
-    };
-  };
+  t: Record<string, any>;
   lang: "es" | "en";
   showFooter: boolean;
 }
@@ -31,7 +20,7 @@ const info = t.personal_info;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{t.site?.title}</title>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="bg-brand-darker text-brand-light font-sans antialiased">
     <Header t={t} lang={lang} />
@@ -80,50 +69,62 @@ const info = t.personal_info;
     <main>
       <slot />
     </main>
-    {showFooter === true && <Footer t={t} />}
+    {
+      showFooter === true && (
+        <Footer
+          t={{
+            footer: {
+              copyright: t.footer.copyright,
+            },
+            personal_info: {
+              name: t.personal_info.name,
+              social_links: {
+                linkedin: t.personal_info.social_links.linkedin,
+                github: t.personal_info.social_links.github,
+              },
+            },
+          }}
+        />
+      )
+    }
   </body>
 </html>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-  import { Observer } from "gsap/Observer";
+  import { animate } from "motion";
 
-  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
+  function setupGlobalInteractions() {
+    const header = document.querySelector("#main-header");
 
-  document.addEventListener("astro:page-load", () => {
-    const header = document.querySelector<HTMLElement>("#main-header");
     if (!header) return;
 
-    ScrollTrigger.create({
-      start: "top top-=-100",
-      onUpdate: (self) => {
-        if (self.direction === 1) {
-          gsap.to(header, { y: "-100%", duration: 0.3, ease: "power2.inOut" });
-        } else {
-          gsap.to(header, { y: "0%", duration: 0.3, ease: "power2.inOut" });
-        }
-      },
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener("scroll", () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 100) {
+        header.classList.add("is-scrolled");
+      } else {
+        header.classList.remove("is-scrolled");
+      }
+
+      if (
+        currentScrollY > lastScrollY &&
+        currentScrollY > header.clientHeight
+      ) {
+        animate(header, { y: "-100%" }, { duration: 0.3, ease: "easeInOut" });
+      } else if (currentScrollY < lastScrollY) {
+        animate(header, { y: "0%" }, { duration: 0.3, ease: "easeInOut" });
+      }
+
+      lastScrollY = currentScrollY;
     });
 
-    Observer.create({
-      target: window,
-      type: "pointer",
-      onMove: (self) => {
-        if (self.y < 80) {
-          gsap.to(header, { y: "0%", duration: 0.3, ease: "power2.out" });
-        }
-      },
-    });
-
-    ScrollTrigger.create({
-      trigger: "body",
-      start: "100px top",
-      toggleClass: {
-        targets: header,
-        className: "is-scrolled",
-      },
+    window.addEventListener("mousemove", (e) => {
+      if (e.clientY < 80) {
+        animate(header, { y: "0%" }, { duration: 0.3, ease: "easeOut" });
+      }
     });
 
     const lang = document.documentElement.lang;
@@ -134,17 +135,23 @@ const info = t.personal_info;
           e.preventDefault();
 
           const targetId = `#${href.split("#")[1]}`;
+          const targetElement = document.querySelector(targetId);
+          if (!targetElement) return;
 
-          gsap.to(window, {
-            duration: 1.2,
-            ease: "power3.inOut",
-            scrollTo: {
-              y: targetId,
-              offsetY: 100,
-            },
-          });
+          const headerOffset = 100;
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.scrollY - headerOffset;
+
+          animate(
+            document.documentElement,
+            { scrollTop: offsetPosition },
+            { duration: 1.2, ease: "easeInOut" }
+          );
         }
       });
     });
-  });
+  }
+
+  document.addEventListener("astro:page-load", setupGlobalInteractions);
 </script>

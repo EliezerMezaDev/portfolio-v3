@@ -6,6 +6,7 @@ import Layout from "@/layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 import esTranslations from "@/content/i18n/es.json";
 import enTranslations from "@/content/i18n/en.json";
+import TechStackBadges from "@/components/TechStackBadges.astro";
 
 export async function getStaticPaths() {
   const allProjects = await getCollection("projects");
@@ -36,7 +37,7 @@ const techDictionary = t.technologies;
   <div class="project-detail-layout overflow-x-hidden">
     <div class="relative max-sm:p-2 flex flex-col lg:flex-row">
       <aside
-        class="w-full lg:w-[40%] lg:h-screen lg:sticky lg:top-0 px-4 md:px-6 lg:px-8 py-20 flex flex-col justify-between overflow-y-auto bg-brand-darker z-10"
+        class="w-full lg:w-[40%] lg:h-screen lg:sticky lg:top-0 px-4 md:px-6 lg:px-8 pt-20 pb-8 md:py-20 flex flex-col justify-between overflow-y-auto bg-brand-darker z-10"
       >
         <div>
           <img
@@ -46,35 +47,24 @@ const techDictionary = t.technologies;
           />
 
           <h1
-            class="text-4xl md:text-5xl font-bold text-brand-light tracking-tighter mb-4"
+            class="text-2xl md:text-3xl font-bold text-brand-light tracking-tighter mb-2"
           >
             {title}
           </h1>
-          <p class="text-lg text-brand-light/70 mb-8">{summary}</p>
+          <p class="text-base text-brand-light/70 mb-8">{summary}</p>
           <div
             class="prose prose-invert prose-lg max-w-none text-brand-light/80"
           >
             <Content />
           </div>
         </div>
+
         <div class="mt-12">
-          <h3 class="text-lg font-semibold text-brand-light mb-4">
+          <h3 class="text-lg font-semibold text-brand-light mb-2">
             {t.project_detail_page.tech_stack}
           </h3>
-          <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-            {
-              tags.map((tagKey) => {
-                const tech = techDictionary[tagKey];
-                if (!tech) return null;
-                return (
-                  <div class="flex items-center gap-2" title={tech.name}>
-                    <Icon name={tech.icon} class="size-6" />
-                    <span class="text-md text-brand-light/80">{tech.name}</span>
-                  </div>
-                );
-              })
-            }
-          </div>
+
+          <TechStackBadges tags={tags} {techDictionary} />
         </div>
       </aside>
 
@@ -82,7 +72,7 @@ const techDictionary = t.technologies;
         <div id="gallery-track" class="flex flex-col lg:flex-row">
           {
             galleryImages && galleryImages.length > 0 ? (
-              galleryImages.map((image) => (
+              galleryImages.map((image: any) => (
                 <div class="panel w-full h-auto lg:h-screen flex-shrink-0 flex items-center justify-center p-4 md:p-8">
                   <img
                     src={image.src}
@@ -141,59 +131,62 @@ const techDictionary = t.technologies;
   body {
     overflow-x: hidden;
   }
-
-  .project-detail-layout .prose h2 {
-    @apply text-2xl font-bold text-accent mb-4 mt-8;
-  }
-
-  .project-detail-layout .prose a {
-    @apply text-accent hover:underline;
-  }
 </style>
 
 <script>
-  import { gsap } from "gsap";
-  import { Observer } from "gsap/Observer";
+  import { animate } from "motion";
 
-  gsap.registerPlugin(Observer);
+  function setupHorizontalGallery() {
+    const galleryContainer = document.querySelector("#gallery-container");
+    const galleryTrack = document.querySelector("#gallery-track");
 
-  document.addEventListener("astro:page-load", () => {
-    const mm = gsap.matchMedia();
+    if (!galleryContainer || !galleryTrack) return null;
 
-    mm.add("(min-width: 1024px)", () => {
-      const galleryContainer =
-        document.querySelector<HTMLElement>("#gallery-container");
-      const galleryTrack =
-        document.querySelector<HTMLElement>("#gallery-track");
-      const panels = gsap.utils.toArray<HTMLElement>(".panel");
+    let currentX = 0;
+    const maxScroll = galleryTrack.scrollWidth - galleryContainer.clientWidth;
 
-      if (!galleryContainer || !galleryTrack || panels.length === 0) return;
+    const handleWheel = (event) => {
+      event.preventDefault();
+      currentX += event.deltaY;
+      currentX = Math.max(0, Math.min(currentX, maxScroll));
+      animate(
+        galleryTrack,
+        { x: -currentX },
+        { duration: 0.6, ease: "easeOut" }
+      );
+    };
 
-      const galleryTimeline = gsap.to(galleryTrack, {
-        x: () => -(galleryTrack.scrollWidth - galleryContainer.clientWidth),
-        ease: "none",
-        paused: true,
-      });
+    galleryContainer.addEventListener("wheel", handleWheel);
 
-      const galleryObserver = Observer.create({
-        target: galleryContainer,
-        type: "wheel,touch",
-        onWheel: (self) => {
-          self.event.preventDefault();
+    return () => {
+      galleryContainer.removeEventListener("wheel", handleWheel);
+    };
+  }
 
-          let progress = galleryTimeline.progress() + self.deltaY / 350;
+  function initPageScript() {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    let cleanupGallery = null;
 
-          gsap.to(galleryTimeline, {
-            progress: progress,
-            duration: 0.5,
-            ease: "power2.out",
-          });
-        },
-      });
+    const handleMediaQueryChange = (e) => {
+      if (e.matches) {
+        if (!cleanupGallery) {
+          cleanupGallery = setupHorizontalGallery();
+        }
+      } else {
+        if (cleanupGallery) {
+          cleanupGallery();
+          cleanupGallery = null;
+          const galleryTrack = document.querySelector("#gallery-track");
+          if (galleryTrack) {
+            animate(galleryTrack, { x: 0 }, { duration: 0 });
+          }
+        }
+      }
+    };
 
-      return () => {
-        if (galleryObserver) galleryObserver.kill();
-      };
-    });
-  });
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+    handleMediaQueryChange(mediaQuery);
+  }
+
+  document.addEventListener("astro:page-load", initPageScript);
 </script>

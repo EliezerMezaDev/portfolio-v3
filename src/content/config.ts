@@ -7,6 +7,7 @@ const experienceCollection = defineCollection({
     company: z.string(),
     companyUrl: z.string().url().optional(),
     date: z.string(),
+    techStack: z.array(z.string()),
     type: z.enum(["work", "consulting"]),
   }),
 });

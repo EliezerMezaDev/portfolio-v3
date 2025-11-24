@@ -1,0 +1,29 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  tags: string[];
+  techDictionary: Record<string, { name: string; icon: string }>;
+}
+
+const { tags, techDictionary } = Astro.props;
+---
+
+<div class="flex flex-wrap items-center gap-2">
+  {
+    tags.map((tagKey) => {
+      const tech = techDictionary[tagKey];
+      if (!tech) return null;
+
+      return (
+        <div
+          class="py-2 px-4 bg-brand-dark rounded-full flex items-center gap-2"
+          title={tech.name}
+        >
+          <Icon name={tech.icon} class="size-4" />
+          <span class="text-sm text-brand-light/80">{tech.name}</span>
+        </div>
+      );
+    })
+  }
+</div>

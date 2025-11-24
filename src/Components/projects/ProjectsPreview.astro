@@ -43,28 +43,29 @@ const { projects, t, lang } = Astro.props;
 </Section>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { animate, inView } from "motion";
 
-  gsap.registerPlugin(ScrollTrigger);
+  function animateProjects() {
+    const projectCards = document.querySelectorAll("[data-animate-project]");
 
-  document.addEventListener("astro:page-load", () => {
-    gsap.context(() => {
-      const items = gsap.utils.toArray<HTMLElement>(".project-card");
+    projectCards.forEach((card) => {
+      inView(
+        card,
+        () => {
+          const animation = animate(
+            card,
+            { opacity: 1,  },
+            { duration: 0.8, ease: "ease-out" }
+          );
 
-      items.forEach((item) => {
-        gsap.from(item, {
-          opacity: 0,
-          y: 50,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: item,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        });
-      });
-    }, "#projects");
-  });
+          animation.finished.then(() => {
+            card.classList.remove("opacity-0",);
+          });
+        },
+        {   amount: 0.2 }
+      );
+    });
+  }
+
+  document.addEventListener("astro:page-load", animateProjects);
 </script>

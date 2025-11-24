@@ -14,3 +14,20 @@
 #main-header.is-scrolled {
   @apply bg-brand-darker/90 backdrop-blur-sm shadow-lg;
 }
+
+.prose h2 {
+  @apply text-xl font-bold text-accent-darker mb-1 mt-8;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1rem;
+}
+
+.prose p {
+  margin-top: 1rem;
+}
+
+.prose ul li::marker {
+  color: hsl(var(--brand-accent) / 0.8);
+}

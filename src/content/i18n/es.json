@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "EMZ | Portafolio"
+    "title": "EaMZ | Portafolio"
   },
   "nav": {
     "home": "Inicio",
@@ -14,7 +14,7 @@
     "other_lang_name": "English"
   },
   "personal_info": {
-    "name": "Eliezer A meza",
+    "name": "Eliezer A Meza",
     "email": "eliezermeza.dev@gamil.com",
     "location": "Nueva Esparta, Venezuela",
     "role": "Desarrollador de software",
@@ -33,16 +33,18 @@
   },
   "experience_section": {
     "title": "Experiencia",
-    "work_title": "Experiencia Laboral",
-    "consulting_title": "Proyectos de Consultoría"
+    "work_title": "Experiencia laboral",
+    "consulting_title": "Proyectos de consultoría"
   },
   "technologies": {
     "astro": { "name": "Astro", "icon": "logos:astro-icon" },
-    "react": { "name": "React", "icon": "logos:react" },
+    "nextjs": { "name": "Nextjs", "icon": "logos:nextjs-icon" },
     "nuxt": { "name": "Nuxt", "icon": "logos:nuxt-icon" },
+    "react": { "name": "React", "icon": "logos:react" },
+    "typescript": { "name": "TypeScript", "icon": "logos:typescript-icon" },
     "scss": { "name": "SCSS", "icon": "logos:sass" },
     "tailwind": { "name": "Tailwind", "icon": "logos:tailwindcss-icon" },
-    "typescript": { "name": "TypeScript", "icon": "logos:typescript-icon" },
+    "ionic": { "name": "Ionic", "icon": "logos:ionic-icon" },
     "flutter": { "name": "Flutter", "icon": "logos:flutter" },
 
     "nodejs": { "name": "Node.js", "icon": "logos:nodejs-icon" },
@@ -53,18 +55,23 @@
     "supabase": { "name": "Supabase", "icon": "logos:supabase-icon" }
   },
   "skills_section": {
-    "title": "Habilidades",
-    "frontend_keys": [
-      "astro",
-      "react",
-      "nuxt",
-      "scss",
-      "tailwind",
-      "typescript",
-      "flutter"
-    ],
-    "backend_keys": ["nodejs", "bun", "strapi"],
-    "database_keys": ["postgresql", "supabase"]
+    "title": "Skills",
+    "frontend": {
+      "title": "Frontend",
+      "keys": [
+        "astro",
+        "nextjs",
+        "nuxt",
+        "react",
+        "typescript",
+        "scss",
+        "tailwind",
+        "ionic",
+        "flutter"
+      ]
+    },
+    "backend": { "title": "Backend", "keys": ["nodejs", "bun", "strapi"] },
+    "database": { "title": "Databases", "keys": ["postgresql", "supabase"] }
   },
   "projects_section": {
     "title": "Proyectos destacados",
